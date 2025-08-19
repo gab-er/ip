@@ -84,7 +84,7 @@ public class Jimmy {
                     ToDo newToDo = new ToDo(commandDescription);
                     storedTasks.add(newToDo); // Store entered text
                     System.out.println(horizontalDivider);
-                    System.out.println(String.format("Got it. I've added this task: \n %s", newToDo));
+                    System.out.println(String.format("Got it. I've added this task:\n %s", newToDo));
                     System.out.println(String.format("Now you have %d tasks in the list.", storedTasks.size()));
                     System.out.println(horizontalDivider);
                 }
@@ -96,13 +96,12 @@ public class Jimmy {
                     Deadline newDeadline = new Deadline(commandDescription, deadline);
                     storedTasks.add(newDeadline); // Store entered text
                     System.out.println(horizontalDivider);
-                    System.out.println(String.format("Got it. I've added this task: \n %s", newDeadline));
+                    System.out.println(String.format("Got it. I've added this task:\n %s", newDeadline));
                     System.out.println(String.format("Now you have %d tasks in the list.", storedTasks.size()));
                     System.out.println(horizontalDivider);
                 }
 
             } else if (command.matches(eventPattern)) {
-                System.out.println("matches event");
                 Matcher m = Pattern.compile(eventPattern).matcher(command);
                 if (m.find()) {
                     String commandDescription = m.group(1);
@@ -111,7 +110,7 @@ public class Jimmy {
                     Event newEvent = new Event(commandDescription, start, end);
                     storedTasks.add(newEvent); // Store entered text
                     System.out.println(horizontalDivider);
-                    System.out.println(String.format("Got it. I've added this task: \n %s", newEvent));
+                    System.out.println(String.format("Got it. I've added this task:\n %s", newEvent));
                     System.out.println(String.format("Now you have %d tasks in the list.", storedTasks.size()));
                     System.out.println(horizontalDivider);
                 }
