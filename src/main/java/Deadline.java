@@ -1,6 +1,12 @@
 public class Deadline extends Task {
     private String deadline;
 
+    /**
+     * Constructor for a Deadline object
+     *
+     * @param description The description of the task
+     * @param deadline    The deadline of the task
+     */
     public Deadline(String description, String deadline) {
         super(description);
         this.deadline = deadline;

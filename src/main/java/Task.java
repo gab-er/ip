@@ -4,6 +4,11 @@ public class Task {
     private final int id;
     private static int globalId = 1; // Start from 1
 
+    /**
+     * Constructor for a Task object
+     *
+     * @param description The description of the task
+     */
     public Task(String description) {
         this.completed = false;
         this.description = description;

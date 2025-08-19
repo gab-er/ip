@@ -1,4 +1,3 @@
-import java.util.Locale;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -26,6 +25,12 @@ public class Jimmy {
         handleExit(horizontalDivider);
     }
 
+    /**
+     * Handles the greeting sent by the chatbot
+     *
+     * @param horizontalDivider The horizontal line divider used to separate chunks of text
+     * @param chatBotName       The name of the chatbot
+     */
     public static void handleGreeting(String horizontalDivider, String chatBotName) {
         System.out.println(horizontalDivider);
         System.out.println("Hello! I'm " + chatBotName);
@@ -33,13 +38,27 @@ public class Jimmy {
         System.out.println(horizontalDivider + "\n"); // Add newline so user input is on next line
     }
 
+    /**
+     * Handles the exit message sent by the chatbot
+     *
+     * @param horizontalDivider The horizontal line divider used to separate chunks of text
+     */
     public static void handleExit(String horizontalDivider) {
         System.out.println(horizontalDivider);
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println(horizontalDivider);
     }
 
+    /**
+     * Handles the input sent by the user and responds accordingly.
+     *
+     * @param command           The string input that is typed by the user
+     * @param scan              The scanner object used by the chatbot
+     * @param horizontalDivider The horizontal line divider used to separate chunks of text
+     * @param storedTasks       The arraylist used to store the tasks created by the user
+     */
     public static void handleCommand(String command, Scanner scan, String horizontalDivider, ArrayList<Task> storedTasks) {
+        // Initialise all necessary regular expression patterns
         String markPattern = "mark \\d+";
         String unmarkPattern = "unmark \\d+";
         String listPattern = "list";
@@ -47,6 +66,7 @@ public class Jimmy {
         String toDoPattern = "todo\\s+(.+)"; // to-do, whitespace, any sequence of words
         String deadlinePattern = "deadline\\s+(.+)\\s+(/by (.+))";
         String eventPattern = "event\\s+(.+)\\s+(/from (.+))\\s+(/to (.+))";
+        String deletePattern = "delete (\\d+)";
 
         // Only exit if "bye" is inputted
         while (!command.matches(byePattern)) {
@@ -54,26 +74,38 @@ public class Jimmy {
                 // Verify the contents of the command using regular expressions
                 if (command.matches(listPattern)) {
                     // List: Display stored text
-                    for (Task currentTask : storedTasks) {
-                        String formattedString = String.format("%d.%s", currentTask.getId(), currentTask);
+                    System.out.println(horizontalDivider);
+                    System.out.println("Here are the tasks in your list:");
+                    for (int i = 0; i < storedTasks.size(); i++) {
+                        Task currentTask = storedTasks.get(i);
+                        String formattedString = String.format("%d.%s", i + 1, currentTask);
                         System.out.println(formattedString);
                     }
+                    System.out.println(horizontalDivider);
                 } else if (command.matches(markPattern)) {
                     // Mark: mark task as done
                     String[] splitCommand = command.split(" ");
                     try {
                         int parsedInt = Integer.parseInt(splitCommand[1]); // Try to convert the string into an int
-                        storedTasks.get(parsedInt - 1).markDone(); // Mark task as done
+                        Task taskToMark = storedTasks.get(parsedInt - 1);
+                        taskToMark.markDone(); // Mark task as done
+                        System.out.println(horizontalDivider);
+                        System.out.println(String.format("Nice! I've marked this task as done:\n %s", taskToMark));
+                        System.out.println(horizontalDivider);
                     } catch (Exception e) {
                         // Catch invalid inputs
                         throw new JimmyException("Oops! Please mark a valid task!");
                     }
                 } else if (command.matches(unmarkPattern)) {
-                    //Unmark: mark task as not done
+                    // Unmark: mark task as not done
                     String[] splitCommand = command.split(" ");
                     try {
                         int parsedInt = Integer.parseInt(splitCommand[1]); // Try to convert the string into an int
-                        storedTasks.get(parsedInt - 1).markNotDone(); // Mark task as done
+                        Task taskToUnmark = storedTasks.get(parsedInt - 1);
+                        taskToUnmark.markNotDone(); // Mark task as not done
+                        System.out.println(horizontalDivider);
+                        System.out.println(String.format("Ok! I've marked this task as not done yet:\n %s", taskToUnmark));
+                        System.out.println(horizontalDivider);
                     } catch (Exception e) {
                         // Catch invalid inputs
                         System.out.println(e);
@@ -113,6 +145,17 @@ public class Jimmy {
                         storedTasks.add(newEvent); // Store entered text
                         System.out.println(horizontalDivider);
                         System.out.println(String.format("Got it. I've added this task:\n %s", newEvent));
+                        System.out.println(String.format("Now you have %d tasks in the list.", storedTasks.size()));
+                        System.out.println(horizontalDivider);
+                    }
+                } else if (command.matches(deletePattern)) {
+                    Matcher m = Pattern.compile(deletePattern).matcher(command);
+                    if (m.find()) {
+                        int taskNumberToDelete = Integer.parseInt(m.group(1)) - 1;
+                        Task taskToDelete = storedTasks.get(taskNumberToDelete);
+                        storedTasks.remove(taskNumberToDelete);
+                        System.out.println(horizontalDivider);
+                        System.out.println(String.format("Noted. I've removed this task:\n %s", taskToDelete));
                         System.out.println(String.format("Now you have %d tasks in the list.", storedTasks.size()));
                         System.out.println(horizontalDivider);
                     }
