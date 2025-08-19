@@ -1,3 +1,4 @@
+import java.util.Locale;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -49,80 +50,92 @@ public class Jimmy {
 
         // Only exit if "bye" is inputted
         while (!command.matches(byePattern)) {
-            // Verify the contents of the command using regular expressions
+            try {
+                // Verify the contents of the command using regular expressions
+                if (command.matches(listPattern)) {
+                    // List: Display stored text
+                    for (Task currentTask : storedTasks) {
+                        String formattedString = String.format("%d.%s", currentTask.getId(), currentTask);
+                        System.out.println(formattedString);
+                    }
+                } else if (command.matches(markPattern)) {
+                    // Mark: mark task as done
+                    String[] splitCommand = command.split(" ");
+                    try {
+                        int parsedInt = Integer.parseInt(splitCommand[1]); // Try to convert the string into an int
+                        storedTasks.get(parsedInt - 1).markDone(); // Mark task as done
+                    } catch (Exception e) {
+                        // Catch invalid inputs
+                        throw new JimmyException("Oops! Please mark a valid task!");
+                    }
+                } else if (command.matches(unmarkPattern)) {
+                    //Unmark: mark task as not done
+                    String[] splitCommand = command.split(" ");
+                    try {
+                        int parsedInt = Integer.parseInt(splitCommand[1]); // Try to convert the string into an int
+                        storedTasks.get(parsedInt - 1).markNotDone(); // Mark task as done
+                    } catch (Exception e) {
+                        // Catch invalid inputs
+                        System.out.println(e);
+                    }
+                } else if (command.matches(toDoPattern)) {
+                    System.out.println("todo");
+                    Matcher m = Pattern.compile(toDoPattern).matcher(command);
+                    if (m.find()) {
+                        String commandDescription = m.group(1);
+                        ToDo newToDo = new ToDo(commandDescription);
+                        storedTasks.add(newToDo); // Store entered text
+                        System.out.println(horizontalDivider);
+                        System.out.println(String.format("Got it. I've added this task:\n %s", newToDo));
+                        System.out.println(String.format("Now you have %d tasks in the list.", storedTasks.size()));
+                        System.out.println(horizontalDivider);
+                    }
+                } else if (command.matches(deadlinePattern)) {
+                    Matcher m = Pattern.compile(deadlinePattern).matcher(command);
+                    if (m.find()) {
+                        String commandDescription = m.group(1);
+                        String deadline = m.group(3);
+                        Deadline newDeadline = new Deadline(commandDescription, deadline);
+                        storedTasks.add(newDeadline); // Store entered text
+                        System.out.println(horizontalDivider);
+                        System.out.println(String.format("Got it. I've added this task:\n %s", newDeadline));
+                        System.out.println(String.format("Now you have %d tasks in the list.", storedTasks.size()));
+                        System.out.println(horizontalDivider);
+                    }
 
-            if (command.matches(listPattern)) {
-                // List: Display stored text
-                for (Task currentTask : storedTasks) {
-                    String formattedString = String.format("%d.%s", currentTask.getId(), currentTask);
-                    System.out.println(formattedString);
+                } else if (command.matches(eventPattern)) {
+                    Matcher m = Pattern.compile(eventPattern).matcher(command);
+                    if (m.find()) {
+                        String commandDescription = m.group(1);
+                        String start = m.group(3);
+                        String end = m.group(5);
+                        Event newEvent = new Event(commandDescription, start, end);
+                        storedTasks.add(newEvent); // Store entered text
+                        System.out.println(horizontalDivider);
+                        System.out.println(String.format("Got it. I've added this task:\n %s", newEvent));
+                        System.out.println(String.format("Now you have %d tasks in the list.", storedTasks.size()));
+                        System.out.println(horizontalDivider);
+                    }
+                } else {
+                    // Throw the appropriate error
+                    if (command.toLowerCase().contains("mark")) {
+                        throw new JimmyException("Oops! Please mark a valid task!");
+                    } else if (command.toLowerCase().contains("todo")) {
+                        throw new JimmyException("Oops! Please give a valid todo task!");
+                    } else if (command.toLowerCase().contains("deadline")) {
+                        throw new JimmyException("Oops! Please give a valid deadline task!");
+                    } else if (command.toLowerCase().contains("event")) {
+                        throw new JimmyException("Oops! Please give a valid event task!");
+                    }
+                    throw new JimmyException("Oops! I have no clue what that means!");
                 }
-            } else if (command.matches(markPattern)) {
-                // Mark: mark task as done
-                String[] splitCommand = command.split(" ");
-                try {
-                    int parsedInt = Integer.parseInt(splitCommand[1]); // Try to convert the string into an int
-                    storedTasks.get(parsedInt - 1).markDone(); // Mark task as done
-                } catch (Exception e) {
-                    // Catch invalid inputs
-                    System.out.println("Please input a valid number");
-                }
-            } else if (command.matches(unmarkPattern)) {
-                //Unmark: mark task as not done
-                String[] splitCommand = command.split(" ");
-                try {
-                    int parsedInt = Integer.parseInt(splitCommand[1]); // Try to convert the string into an int
-                    storedTasks.get(parsedInt - 1).markNotDone(); // Mark task as done
-                } catch (Exception e) {
-                    // Catch invalid inputs
-                    System.out.println("Please input a valid number");
-                }
-            } else if (command.matches(toDoPattern)) {
-                Matcher m = Pattern.compile(toDoPattern).matcher(command);
-                if (m.find()) {
-                    String commandDescription = m.group(1);
-                    ToDo newToDo = new ToDo(commandDescription);
-                    storedTasks.add(newToDo); // Store entered text
-                    System.out.println(horizontalDivider);
-                    System.out.println(String.format("Got it. I've added this task:\n %s", newToDo));
-                    System.out.println(String.format("Now you have %d tasks in the list.", storedTasks.size()));
-                    System.out.println(horizontalDivider);
-                }
-            } else if (command.matches(deadlinePattern)) {
-                Matcher m = Pattern.compile(deadlinePattern).matcher(command);
-                if (m.find()) {
-                    String commandDescription = m.group(1);
-                    String deadline = m.group(3);
-                    Deadline newDeadline = new Deadline(commandDescription, deadline);
-                    storedTasks.add(newDeadline); // Store entered text
-                    System.out.println(horizontalDivider);
-                    System.out.println(String.format("Got it. I've added this task:\n %s", newDeadline));
-                    System.out.println(String.format("Now you have %d tasks in the list.", storedTasks.size()));
-                    System.out.println(horizontalDivider);
-                }
-
-            } else if (command.matches(eventPattern)) {
-                Matcher m = Pattern.compile(eventPattern).matcher(command);
-                if (m.find()) {
-                    String commandDescription = m.group(1);
-                    String start = m.group(3);
-                    String end = m.group(5);
-                    Event newEvent = new Event(commandDescription, start, end);
-                    storedTasks.add(newEvent); // Store entered text
-                    System.out.println(horizontalDivider);
-                    System.out.println(String.format("Got it. I've added this task:\n %s", newEvent));
-                    System.out.println(String.format("Now you have %d tasks in the list.", storedTasks.size()));
-                    System.out.println(horizontalDivider);
-                }
-            } else {
-                // Echo: show that the task is added
-                Task newTask = new Task(command);
-                storedTasks.add(newTask); // Store entered text
+            } catch (JimmyException e) {
                 System.out.println(horizontalDivider);
-                System.out.println("added: " + command);
+                System.out.println(e.getMessage());
                 System.out.println(horizontalDivider);
+            } finally {
+                command = scan.nextLine();
             }
-            command = scan.nextLine();
         }
     }
 }
