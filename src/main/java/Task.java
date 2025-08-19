@@ -1,7 +1,7 @@
 public class Task {
     private boolean completed;
     private final String description;
-    private int id;
+    private final int id;
     private static int globalId = 1; // Start from 1
 
     public Task(String description) {
@@ -34,4 +34,9 @@ public class Task {
         return this.id;
     }
 
+    @Override
+    public String toString() {
+        String formattedString = String.format("[%s] %s", this.getStatusIcon(), this.getDescription());
+        return formattedString;
+    }
 }
