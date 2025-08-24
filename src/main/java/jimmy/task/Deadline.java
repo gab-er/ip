@@ -1,6 +1,6 @@
-package duke.task;
+package jimmy.task;
 
-import duke.exception.JimmyException;
+import jimmy.exception.JimmyException;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

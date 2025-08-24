@@ -1,7 +1,7 @@
-package duke;
+package jimmy;
 
-import duke.exception.JimmyException;
-import duke.task.*;
+import jimmy.exception.JimmyException;
+import jimmy.task.*;
 
 import java.util.Scanner;
 import java.util.regex.Matcher;

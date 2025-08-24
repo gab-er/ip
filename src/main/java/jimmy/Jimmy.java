@@ -1,7 +1,7 @@
-package duke;
+package jimmy;
 
-import duke.task.Task;
-import duke.task.TaskList;
+import jimmy.task.Task;
+import jimmy.task.TaskList;
 
 import java.util.Scanner;
 import java.util.ArrayList;
