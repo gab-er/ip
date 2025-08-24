@@ -9,8 +9,8 @@ public class Task {
      *
      * @param description The description of the task
      */
-    public Task(String description) {
-        this.completed = false;
+    public Task(String description, boolean completed) {
+        this.completed = completed;
         this.description = description;
         this.id = globalId++;
     }
@@ -37,6 +37,10 @@ public class Task {
 
     public int getId() {
         return this.id;
+    }
+
+    public String toStorageString() {
+        return String.format("TODO|%s|%s", this.getDescription(), this.getCompleted());
     }
 
     @Override

@@ -3,14 +3,33 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Represents the Jimmy chatbot object.
+ */
 public class Jimmy {
+    private final Scanner scan;
+    private final String chatBotName;
+    private final String horizontalDivider;
+    private ArrayList<Task> storedTasks;
+    private Storage taskStorage;
 
-    public static void main(String[] args) {
-        // Initialise variables
-        Scanner scan = new Scanner(System.in);
-        String chatBotName = "Jimmy";
-        String horizontalDivider = "_________________________________________________";
-        ArrayList<Task> storedTasks = new ArrayList<>(); // Array to store commands given
+    /**
+     * Constructor for a Jimmy object.
+     */
+    public Jimmy() {
+        this.scan = new Scanner(System.in);
+        this.chatBotName = "Jimmy";
+        this.horizontalDivider = "_________________________________________________";
+        this.storedTasks = new ArrayList<>(); // Array to store commands given
+        this.taskStorage = new Storage("taskStorage.txt");
+    }
+
+    /**
+     *
+     */
+    public void run() {
+        // Load data into storedTasks
+        this.storedTasks = this.taskStorage.loadData();
 
         // Greetings
         handleGreeting(horizontalDivider, chatBotName);
@@ -26,12 +45,12 @@ public class Jimmy {
     }
 
     /**
-     * Handles the greeting sent by the chatbot
+     * Handles the greeting sent by the chatbot.
      *
      * @param horizontalDivider The horizontal line divider used to separate chunks of text
      * @param chatBotName       The name of the chatbot
      */
-    public static void handleGreeting(String horizontalDivider, String chatBotName) {
+    public void handleGreeting(String horizontalDivider, String chatBotName) {
         System.out.println(horizontalDivider);
         System.out.println("Hello! I'm " + chatBotName);
         System.out.println("What can I do for you?");
@@ -39,11 +58,11 @@ public class Jimmy {
     }
 
     /**
-     * Handles the exit message sent by the chatbot
+     * Handles the exit message sent by the chatbot.
      *
-     * @param horizontalDivider The horizontal line divider used to separate chunks of text
+     * @param horizontalDivider The horizontal line divider used to separate chunks of text.
      */
-    public static void handleExit(String horizontalDivider) {
+    public void handleExit(String horizontalDivider) {
         System.out.println(horizontalDivider);
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println(horizontalDivider);
@@ -52,12 +71,12 @@ public class Jimmy {
     /**
      * Handles the input sent by the user and responds accordingly.
      *
-     * @param command           The string input that is typed by the user
-     * @param scan              The scanner object used by the chatbot
-     * @param horizontalDivider The horizontal line divider used to separate chunks of text
-     * @param storedTasks       The arraylist used to store the tasks created by the user
+     * @param command           The string input that is typed by the user.
+     * @param scan              The scanner object used by the chatbot.
+     * @param horizontalDivider The horizontal line divider used to separate chunks of text.
+     * @param storedTasks       The arraylist used to store the tasks created by the user.
      */
-    public static void handleCommand(String command, Scanner scan, String horizontalDivider, ArrayList<Task> storedTasks) {
+    public void handleCommand(String command, Scanner scan, String horizontalDivider, ArrayList<Task> storedTasks) {
         // Initialise all necessary regular expression patterns
         String markPattern = "mark \\d+";
         String unmarkPattern = "unmark \\d+";
@@ -111,11 +130,10 @@ public class Jimmy {
                         System.out.println(e);
                     }
                 } else if (command.matches(toDoPattern)) {
-                    System.out.println("todo");
                     Matcher m = Pattern.compile(toDoPattern).matcher(command);
                     if (m.find()) {
                         String commandDescription = m.group(1);
-                        ToDo newToDo = new ToDo(commandDescription);
+                        ToDo newToDo = new ToDo(commandDescription, false);
                         storedTasks.add(newToDo); // Store entered text
                         System.out.println(horizontalDivider);
                         System.out.println(String.format("Got it. I've added this task:\n %s", newToDo));
@@ -127,7 +145,7 @@ public class Jimmy {
                     if (m.find()) {
                         String commandDescription = m.group(1);
                         String deadline = m.group(3);
-                        Deadline newDeadline = new Deadline(commandDescription, deadline);
+                        Deadline newDeadline = new Deadline(commandDescription, false, deadline);
                         storedTasks.add(newDeadline); // Store entered text
                         System.out.println(horizontalDivider);
                         System.out.println(String.format("Got it. I've added this task:\n %s", newDeadline));
@@ -141,7 +159,7 @@ public class Jimmy {
                         String commandDescription = m.group(1);
                         String start = m.group(3);
                         String end = m.group(5);
-                        Event newEvent = new Event(commandDescription, start, end);
+                        Event newEvent = new Event(commandDescription, false, start, end);
                         storedTasks.add(newEvent); // Store entered text
                         System.out.println(horizontalDivider);
                         System.out.println(String.format("Got it. I've added this task:\n %s", newEvent));
@@ -177,9 +195,16 @@ public class Jimmy {
                 System.out.println(e.getMessage());
                 System.out.println(horizontalDivider);
             } finally {
+                // Save tasks on any input automatically
+                taskStorage.saveData(storedTasks);
                 command = scan.nextLine();
             }
         }
+    }
+
+    public static void main(String[] args) {
+        Jimmy chatBot = new Jimmy();
+        chatBot.run();
     }
 }
 
