@@ -15,11 +15,9 @@ public class Storage {
                 // Create storageFile file if not already created
                 System.out.println(String.format("Storage file created: %s at %s", this.storageFile.getName(),
                         this.storageFile.getAbsolutePath()));
-            } else {
-                System.out.println(String.format("Storage file already created at %s", this.storageFile.getAbsolutePath()));
             }
         } catch (IOException e) {
-            System.out.println("Something went wrong");
+            System.out.println("Failed to create file: " + e.getMessage());
         }
     }
 
