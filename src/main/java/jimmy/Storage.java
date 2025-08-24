@@ -31,7 +31,7 @@ public class Storage {
      *
      * @return Arraylist of tasks.
      */
-    public ArrayList<Task> loadData() {
+    public TaskList loadData(TaskList taskList) {
         ArrayList<Task> storedTasks = new ArrayList<>();
 
         try {
@@ -40,14 +40,14 @@ public class Storage {
             // Update the arraylist to store the tasks
             while (s.hasNext()) {
                 Task newTask = readData(s.nextLine());
-                storedTasks.add(newTask);
+                taskList.addTask(newTask);
             }
         } catch (FileNotFoundException e) {
             System.out.println("File not found");
         } catch (JimmyException e) {
             System.out.println(e);
         }
-        return storedTasks;
+        return taskList;
     };
 
     /**

@@ -24,9 +24,9 @@ public class Jimmy {
     public Jimmy() {
         this.scan = new Scanner(System.in);
         this.taskStorage = new Storage("taskStorage.txt");
-        this.storedTasks = this.taskStorage.loadData();
+        this.taskList = new TaskList();
+        this.taskList = this.taskStorage.loadData(this.taskList);
         this.ui = new Ui(HORIZONTAL_DIVIDER);
-        this.taskList = new TaskList(this.storedTasks);
         this.parser = new Parser(this.ui, this.taskStorage, this.taskList);
     }
 

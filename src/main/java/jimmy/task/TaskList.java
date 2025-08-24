@@ -7,10 +7,9 @@ public class TaskList {
 
     /**
      * Constructor for a TaskList object.
-     * @param storedTasks ArrayList of stored tasks.
      */
-    public TaskList(ArrayList<Task> storedTasks) {
-        this.storedTasks = storedTasks;
+    public TaskList() {
+        this.storedTasks = new ArrayList<Task>();
     }
 
     /**
@@ -45,7 +44,7 @@ public class TaskList {
 
     /**
      * Returns the task that was deleted.
-     * @param taskNumber Position of the task in the list to delete.
+     * @param taskNumber Position of the task in the list to delete and already accounts for zero-indexed positions.
      * @return Task that was deleted.
      */
     public Task removeTask(int taskNumber) {
@@ -56,5 +55,13 @@ public class TaskList {
 
     public ArrayList<Task> getStoredTasks() {
         return this.storedTasks;
+    }
+
+    public int size() {
+        return this.storedTasks.size();
+    }
+
+    public Task getTask(int num) {
+        return this.storedTasks.get(num - 1);
     }
 }
