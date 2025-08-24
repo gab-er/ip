@@ -1,3 +1,7 @@
+package duke.task;
+
+import duke.exception.JimmyException;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

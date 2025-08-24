@@ -1,4 +1,8 @@
-import java.util.ArrayList;
+package duke;
+
+import duke.exception.JimmyException;
+import duke.task.*;
+
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

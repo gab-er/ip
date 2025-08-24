@@ -1,3 +1,8 @@
+package duke;
+
+import duke.task.Task;
+import duke.task.TaskList;
+
 import java.util.ArrayList;
 
 public class Ui {
@@ -82,7 +87,7 @@ public class Ui {
 
     /**
      * Displays the task that was just removed.
-     * @param removedTask Task that was just removed.
+     * @param removedTask .Task that was just removed.
      * @param taskList TaskList of stored tasks.
      */
     public void displayRemovedTask(Task removedTask, TaskList taskList) {

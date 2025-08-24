@@ -1,6 +1,6 @@
-Storage file already created at D:\NUS\Courses\Y2S1\CS2103T\Individual Project\ip\text-ui-test\taskStorage.txt
+duke.Storage file already created at D:\NUS\Courses\Y2S1\CS2103T\Individual Project\ip\text-ui-test\taskStorage.txt
 _________________________________________________
-Hello! I'm Jimmy
+Hello! I'm duke.Jimmy
 What can I do for you?
 _________________________________________________
 
