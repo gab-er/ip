@@ -77,9 +77,10 @@ public class Storage {
     /**
      * Saves the stored tasks in storedTasks to the hard disk.
      *
-     * @param storedTasks ArrayList of tasks.
+     * @param taskList TaskList of stored tasks.
      */
-    public void saveData(ArrayList<Task> storedTasks) {
+    public void saveData(TaskList taskList) {
+        ArrayList<Task> storedTasks = taskList.getStoredTasks();
         try {
             FileWriter fw = new FileWriter(this.storageFile);
             for (int i = 0; i < storedTasks.size(); i++) {
