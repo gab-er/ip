@@ -65,22 +65,22 @@ public class Storage {
     public Task readData(String dataEntry) throws JimmyException {
         String[] parsedData = dataEntry.split("\\|");
         switch (parsedData[0].toLowerCase()) {
-            case ("todo"):
-                // TODO|DESCRIPTION|COMPLETED
-                ToDo newTodo = new ToDo(parsedData[1], parsedData[2].equalsIgnoreCase("true")); // TODO|DESCRIPTION|COMPLETED
-                return newTodo;
-            case ("deadline"):
-                // DEADLINE|DESCRIPTION|COMPLETED|DEADLINE
-                Deadline newDeadline = new Deadline(parsedData[1], parsedData[2].equalsIgnoreCase("true"),
-                        parsedData[3]);
-                return newDeadline;
-            case ("event"):
-                // EVENT|DESCRIPTION|COMPLETED|START|END|
-                Event newEvent = new Event(parsedData[1], parsedData[2].equalsIgnoreCase("true"),
-                        parsedData[3], parsedData[4]);
-                return newEvent;
-            default:
-                throw new JimmyException("Error in reading data");
+        case ("todo"):
+            // TODO|DESCRIPTION|COMPLETED
+            ToDo newTodo = new ToDo(parsedData[1], parsedData[2].equalsIgnoreCase("true")); // TODO|DESCRIPTION|COMPLETED
+            return newTodo;
+        case ("deadline"):
+            // DEADLINE|DESCRIPTION|COMPLETED|DEADLINE
+            Deadline newDeadline = new Deadline(parsedData[1], parsedData[2].equalsIgnoreCase("true"),
+                    parsedData[3]);
+            return newDeadline;
+        case ("event"):
+            // EVENT|DESCRIPTION|COMPLETED|START|END|
+            Event newEvent = new Event(parsedData[1], parsedData[2].equalsIgnoreCase("true"),
+                    parsedData[3], parsedData[4]);
+            return newEvent;
+        default:
+            throw new JimmyException("Error in reading data");
         }
     }
 
