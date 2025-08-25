@@ -87,4 +87,20 @@ public class TaskList {
     public Task getTask(int num) {
         return this.storedTasks.get(num - 1);
     }
+
+    /**
+     * Returns an ArrayList of tasks that contain the keyword.
+     *
+     * @param keyword String keyword to be found.
+     * @return ArrayList of tasks that contain the keyword.
+     */
+    public ArrayList<Task> findTasks(String keyword) {
+        ArrayList<Task> tasks = new ArrayList<Task>();
+        for (Task task: this.storedTasks) {
+            if (task.getDescription().contains(keyword)) {
+                tasks.add(task);
+            }
+        }
+        return tasks;
+    }
 }
