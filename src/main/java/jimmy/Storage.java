@@ -64,16 +64,13 @@ public class Storage {
         String[] parsedData = dataEntry.split("\\|");
         switch (parsedData[0].toLowerCase()) {
         case ("todo"):
-            ToDo newTodo = new ToDo(parsedData[1], parsedData[2].equalsIgnoreCase("true"));
-            return newTodo;
+            return new ToDo(parsedData[1], parsedData[2].equalsIgnoreCase("true"));
         case ("deadline"):
-            Deadline newDeadline = new Deadline(parsedData[1], parsedData[2].equalsIgnoreCase("true"),
+            return new Deadline(parsedData[1], parsedData[2].equalsIgnoreCase("true"),
                     parsedData[3]);
-            return newDeadline;
         case ("event"):
-            Event newEvent = new Event(parsedData[1], parsedData[2].equalsIgnoreCase("true"),
+            return new Event(parsedData[1], parsedData[2].equalsIgnoreCase("true"),
                     parsedData[3], parsedData[4]);
-            return newEvent;
         default:
             throw new JimmyException("Error in reading data");
         }
