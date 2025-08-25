@@ -7,16 +7,19 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents an event task.
+ */
 public class Event extends Task {
     private LocalDateTime start;
     private LocalDateTime end;
 
     /**
-     * Constructor for an Event object
+     * Constructor for an Event object.
      *
-     * @param description The description of the task
-     * @param start       The start time of the task
-     * @param end         The end time of the task
+     * @param description The description of the task.
+     * @param start       The start time of the task.
+     * @param end         The end time of the task.
      */
     public Event(String description, boolean completed, String start, String end) throws JimmyException {
         super(description, completed);
@@ -54,12 +57,22 @@ public class Event extends Task {
         }
     }
 
+    /**
+     * Returns the formatted string to be used for storing in the hard disk.
+     *
+     * @return Formatted string.
+     */
     public String toStorageString() {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         return String.format("EVENT|%s|%s|%s|%s", this.getDescription(), this.getCompleted(),
                 this.start.format(dateTimeFormatter), this.end.format(dateTimeFormatter));
     }
 
+    /**
+     * Returns the string representation of this task.
+     *
+     * @return String representation of this task.
+     */
     @Override
     public String toString() {
         String type = "E";

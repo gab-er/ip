@@ -30,6 +30,9 @@ public class Jimmy {
         this.parser = new Parser(this.ui, this.taskStorage, this.taskList);
     }
 
+    /**
+     * Runs the chatbot program.
+     */
     public void run() {
         // Greetings
         this.ui.handleGreeting();

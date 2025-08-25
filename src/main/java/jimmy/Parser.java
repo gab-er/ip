@@ -7,6 +7,9 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Represents a Parser object.
+ */
 public class Parser {
     private Ui ui;
     private Storage taskStorage;
@@ -14,9 +17,10 @@ public class Parser {
 
     /**
      * Constructor for a Parser object.
-     * @param ui Ui object
+     *
+     * @param ui          Ui object
      * @param taskStorage Storage object
-     * @param taskList TaskList of stored tasks.
+     * @param taskList    TaskList of stored tasks.
      */
     public Parser(Ui ui, Storage taskStorage, TaskList taskList) {
         this.ui = ui;
@@ -27,8 +31,8 @@ public class Parser {
     /**
      * Handles the input sent by the user and responds accordingly.
      *
-     * @param command           The string input that is typed by the user.
-     * @param scan              The scanner object used by the chatbot.
+     * @param command The string input that is typed by the user.
+     * @param scan    The scanner object used by the chatbot.
      */
     public void parse(String command, Scanner scan) {
         // Initialise all necessary regular expression patterns

@@ -7,6 +7,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a Deadline task.
+ */
 public class Deadline extends Task {
     private LocalDateTime deadline;
 
@@ -33,12 +36,22 @@ public class Deadline extends Task {
         }
     }
 
+    /**
+     * Returns the formatted string to be used for storing in the hard disk.
+     *
+     * @return Formatted string.
+     */
     public String toStorageString() {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         return String.format("DEADLINE|%s|%s|%s", this.getDescription(), this.getCompleted(),
                 this.deadline.format(dateTimeFormatter));
     }
 
+    /**
+     * Returns the string representation of this task.
+     *
+     * @return String representation of this task.
+     */
     @Override
     public String toString() {
         String type = "D";

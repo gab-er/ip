@@ -10,9 +10,17 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
 
+/**
+ * Represents a Storage object.
+ */
 public class Storage {
     private final File storageFile;
 
+    /**
+     * Constructor for a Storage object.
+     *
+     * @param filename name for the file of the stored tasks.
+     */
     public Storage(String filename) {
         this.storageFile = new File(filename);
         try {
@@ -29,11 +37,9 @@ public class Storage {
     /**
      * Returns an arraylist with all the tasks saved in the hard disk.
      *
-     * @return Arraylist of tasks.
+     * @return ArrayList of stored tasks.
      */
     public TaskList loadData(TaskList taskList) {
-        ArrayList<Task> storedTasks = new ArrayList<>();
-
         try {
             // Scanner to read the file
             Scanner s = new Scanner(storageFile);
@@ -48,48 +54,46 @@ public class Storage {
             System.out.println(e);
         }
         return taskList;
-    };
+    }
 
     /**
-     * Returns the appropriate Task based on the data parsed.
+     * Returns the appropriate task based on the data parsed.
      *
      * @param dataEntry a line entry in the taskStorage data that represents a task.
      * @return appropriate Task depending on the line entry.
      */
     public Task readData(String dataEntry) throws JimmyException {
-        // File format:
-        // TODO|DESCRIPTION|COMPLETED
-        // DEADLINE|DESCRIPTION|COMPLETED|DEADLINE
-        // EVENT|DESCRIPTION|COMPLETED|START|END|
         String[] parsedData = dataEntry.split("\\|");
         switch (parsedData[0].toLowerCase()) {
-        case ("todo"):
-            ToDo newTodo = new ToDo(parsedData[1], parsedData[2].equalsIgnoreCase("true"));
-            return newTodo;
-        case ("deadline"):
-            Deadline newDeadline = new Deadline(parsedData[1], parsedData[2].equalsIgnoreCase("true"),
-                    parsedData[3]);
-            return newDeadline;
-        case ("event"):
-            Event newEvent = new Event(parsedData[1], parsedData[2].equalsIgnoreCase("true"),
-                    parsedData[3], parsedData[4]);
-            return newEvent;
-        default:
-            throw new JimmyException("Error in reading data");
+            case ("todo"):
+                // TODO|DESCRIPTION|COMPLETED
+                ToDo newTodo = new ToDo(parsedData[1], parsedData[2].equalsIgnoreCase("true")); // TODO|DESCRIPTION|COMPLETED
+                return newTodo;
+            case ("deadline"):
+                // DEADLINE|DESCRIPTION|COMPLETED|DEADLINE
+                Deadline newDeadline = new Deadline(parsedData[1], parsedData[2].equalsIgnoreCase("true"),
+                        parsedData[3]);
+                return newDeadline;
+            case ("event"):
+                // EVENT|DESCRIPTION|COMPLETED|START|END|
+                Event newEvent = new Event(parsedData[1], parsedData[2].equalsIgnoreCase("true"),
+                        parsedData[3], parsedData[4]);
+                return newEvent;
+            default:
+                throw new JimmyException("Error in reading data");
         }
     }
 
     /**
-     * Saves the stored tasks in storedTasks to the hard disk.
+     * Saves the stored tasks in the taskList to the hard disk.
      *
      * @param taskList TaskList of stored tasks.
      */
     public void saveData(TaskList taskList) {
-        ArrayList<Task> storedTasks = taskList.getStoredTasks();
         try {
             FileWriter fw = new FileWriter(this.storageFile);
-            for (int i = 0; i < storedTasks.size(); i++) {
-                fw.write(storedTasks.get(i).toStorageString());
+            for (int i = 0; i < taskList.size(); i++) {
+                fw.write(taskList.getTask(i + 1).toStorageString()); // Add 1 to account for zero-indexed position
                 fw.write(System.lineSeparator()); // Start next task on a new line
             }
             fw.close();

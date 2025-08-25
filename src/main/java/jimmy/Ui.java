@@ -5,6 +5,9 @@ import jimmy.task.TaskList;
 
 import java.util.ArrayList;
 
+/**
+ * Represents an Ui object.
+ */
 public class Ui {
     private final String CHATBOT_NAME;
     private final String HORIZONTAL_DIVIDER;
@@ -38,6 +41,7 @@ public class Ui {
 
     /**
      * Displays the task list to the user.
+     *
      * @param taskList TaskList containing the stored tasks to do.
      */
     public void displayTaskList(TaskList taskList) {
@@ -54,6 +58,7 @@ public class Ui {
 
     /**
      * Displays the marked task as done.
+     *
      * @param taskToMark Task to mark as done.
      */
     public void displayMarkDone(Task taskToMark) {
@@ -64,6 +69,7 @@ public class Ui {
 
     /**
      * Displays the unmarked task as not done.
+     *
      * @param taskToUnmark Task to unmark.
      */
     public void displayMarkNotDone(Task taskToUnmark) {
@@ -74,30 +80,35 @@ public class Ui {
 
     /**
      * Displays the newly added task.
-     * @param newTask Newly added task.
+     *
+     * @param newTask  Newly added task.
      * @param taskList TaskList of stored tasks.
      */
     public void displayAddedTask(Task newTask, TaskList taskList) {
-        ArrayList<Task> storedTasks = taskList.getStoredTasks();
         System.out.println(HORIZONTAL_DIVIDER);
         System.out.println(String.format("Got it. I've added this task:\n %s", newTask));
-        System.out.println(String.format("Now you have %d tasks in the list.", storedTasks.size()));
+        System.out.println(String.format("Now you have %d tasks in the list.", taskList.size()));
         System.out.println(HORIZONTAL_DIVIDER);
     }
 
     /**
      * Displays the task that was just removed.
+     *
      * @param removedTask .Task that was just removed.
-     * @param taskList TaskList of stored tasks.
+     * @param taskList    TaskList of stored tasks.
      */
     public void displayRemovedTask(Task removedTask, TaskList taskList) {
-        ArrayList<Task> storedTasks = taskList.getStoredTasks();
         System.out.println(HORIZONTAL_DIVIDER);
         System.out.println(String.format("Noted. I've removed this task:\n %s", removedTask));
-        System.out.println(String.format("Now you have %d tasks in the list.", storedTasks.size()));
+        System.out.println(String.format("Now you have %d tasks in the list.", taskList.size()));
         System.out.println(HORIZONTAL_DIVIDER);
     }
 
+    /**
+     * Displays the error message provided by an Exception.
+     *
+     * @param e Exception provided.
+     */
     public void displayError(Exception e) {
         System.out.println(this.HORIZONTAL_DIVIDER);
         System.out.println(e.getMessage());

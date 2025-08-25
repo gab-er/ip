@@ -2,6 +2,9 @@ package jimmy.task;
 
 import java.util.ArrayList;
 
+/**
+ * Represents the list of tasks.
+ */
 public class TaskList {
     private ArrayList<Task> storedTasks;
 
@@ -14,6 +17,7 @@ public class TaskList {
 
     /**
      * Returns the marked task.
+     *
      * @param parsedInt The position of the marked task in the list.
      * @return Marked task.
      */
@@ -25,6 +29,7 @@ public class TaskList {
 
     /**
      * Returns the unmarked task.
+     *
      * @param parsedInt The position of the unmarked task in the list.
      * @return Unmarked task.
      */
@@ -36,6 +41,7 @@ public class TaskList {
 
     /**
      * Adds the given task to the list of tasks.
+     *
      * @param task Task to add to the list.
      */
     public void addTask(Task task) {
@@ -44,6 +50,7 @@ public class TaskList {
 
     /**
      * Returns the task that was deleted.
+     *
      * @param taskNumber Position of the task in the list to delete and already accounts for zero-indexed positions.
      * @return Task that was deleted.
      */
@@ -53,14 +60,30 @@ public class TaskList {
         return taskToDelete;
     }
 
+    /**
+     * Returns the ArrayList of stored tasks.
+     *
+     * @return ArrayList of stored tasks.
+     */
     public ArrayList<Task> getStoredTasks() {
         return this.storedTasks;
     }
 
+    /**
+     * Returns the number of tasks in the task list.
+     *
+     * @return number of tasks in the task list.
+     */
     public int size() {
         return this.storedTasks.size();
     }
 
+    /**
+     * Returns the task in that position, with zero-indexing accounted for.
+     *
+     * @param num Position of the task.
+     * @return Task in the position.
+     */
     public Task getTask(int num) {
         return this.storedTasks.get(num - 1);
     }

@@ -1,5 +1,8 @@
 package jimmy.task;
 
+/**
+ * Represents a ToDo task
+ */
 public class ToDo extends Task {
 
     /**
@@ -11,10 +14,20 @@ public class ToDo extends Task {
         super(description, completed);
     }
 
+    /**
+     * Returns the formatted string to be used for storing in the hard disk.
+     *
+     * @return Formatted string.
+     */
     public String toStorageString() {
         return String.format("TODO|%s|%s", this.getDescription(), this.getCompleted());
     }
 
+    /**
+     * Returns the string representation of this task.
+     *
+     * @return String representation of this task.
+     */
     @Override
     public String toString() {
         String type = "T";
