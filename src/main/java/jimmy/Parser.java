@@ -40,6 +40,7 @@ public class Parser {
         String deadlinePattern = "deadline\\s+(.+)\\s+(/by (.+))";
         String eventPattern = "event\\s+(.+)\\s+(/from (.+))\\s+(/to (.+))";
         String deletePattern = "delete (\\d+)";
+        String findPattern = "find (.+)";
 
         // Only exit if "bye" is inputted
         while (!command.matches(byePattern)) {
@@ -106,6 +107,12 @@ public class Parser {
                         int taskNumberToDelete = Integer.parseInt(m.group(1)) - 1;
                         Task taskToDelete = this.taskList.removeTask(taskNumberToDelete);
                         this.ui.displayRemovedTask(taskToDelete, this.taskList);
+                    }
+                } else if (command.matches(findPattern)) {
+                    Matcher m = Pattern.compile(findPattern).matcher(command);
+                    if (m.find()) {
+                        String keyword = m.group(1);
+                        this.ui.displayFoundTasks(this.taskList, keyword);
                     }
                 } else {
                     // Throw the appropriate error

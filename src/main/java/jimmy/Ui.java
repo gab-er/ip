@@ -103,4 +103,21 @@ public class Ui {
         System.out.println(e.getMessage());
         System.out.println(this.HORIZONTAL_DIVIDER);
     }
+
+    /**
+     * Displays the tasks that are found containing the description.
+     *
+     * @param taskList taskList with stored tasks.
+     * @param keyword Description of the task keyword.
+     */
+    public void displayFoundTasks(TaskList taskList, String keyword) {
+        ArrayList<Task> tasks = taskList.findTasks(keyword);
+        int count = 1;
+        System.out.println(this.HORIZONTAL_DIVIDER);
+        System.out.println("Here are the matching tasks in your list:");
+        for (Task task: tasks) {
+            System.out.println(String.format("%d.%s", count++, task));
+        }
+        System.out.println(this.HORIZONTAL_DIVIDER);
+    }
 }
