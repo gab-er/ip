@@ -103,4 +103,13 @@ public class TaskList {
         }
         return tasks;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 1; i <= storedTasks.size(); i++) {
+            sb.append(String.format("%d.%s\n", i, this.getTask(i)));
+        }
+        return sb.toString();
+    }
 }

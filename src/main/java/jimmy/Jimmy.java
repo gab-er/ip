@@ -46,6 +46,14 @@ public class Jimmy {
         this.ui.handleExit();
     }
 
+    /**
+     * Generates a response for the user's chat message.
+     * Parses the input and do the corresponding tasks required like adding tasks to the taskList etc.
+     */
+    public String getResponse(String input) {
+        return this.parser.parseCommand(input);
+    }
+
     public static void main(String[] args) {
         new Jimmy().run();
     }
