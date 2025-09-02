@@ -17,7 +17,7 @@ import jimmy.task.ToDo;
  * Represents a Storage object.
  */
 public class Storage {
-    private final File storageFile;
+    private File storageFile;
 
     /**
      * Constructs a Storage object.
@@ -25,8 +25,14 @@ public class Storage {
      * @param filename name for the file of the stored tasks.
      */
     public Storage(String filename) {
-        this.storageFile = new File(filename);
         try {
+            // Create folder if it does not exist
+            File folder = new File("data");
+            if (!folder.exists()) {
+                folder.mkdir();
+                System.out.println("Created data folder: " + folder.getAbsolutePath());
+            }
+            this.storageFile = new File(folder, filename);
             if (this.storageFile.createNewFile()) {
                 // Create storageFile file if not already created
                 System.out.println(String.format("Storage file created: %s at %s", this.storageFile.getName(),
