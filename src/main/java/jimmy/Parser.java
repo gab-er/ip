@@ -167,7 +167,7 @@ public class Parser {
         try {
             // Verify the contents of the command using regular expressions
             if (command.matches(byePattern)) {
-                return "Goodbye!";
+                return this.ui.handleExit();
 
             } else if (command.matches(listPattern)) {
                 // List: Display stored text
