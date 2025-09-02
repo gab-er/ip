@@ -110,7 +110,7 @@ public class Ui {
         System.out.println(HORIZONTAL_DIVIDER);
         return String.format("%s\n"
                         + "Got it. I've added this task:\n %s\n"
-                        + "Now you have %d tasks in the list." + "%s",
+                        + "Now you have %d tasks in the list.\n" + "%s",
                 HORIZONTAL_DIVIDER, newTask, taskList.size(), HORIZONTAL_DIVIDER);
     }
 
