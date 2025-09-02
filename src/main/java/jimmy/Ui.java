@@ -22,19 +22,19 @@ public class Ui {
      * Handles the greeting sent by the chatbot.
      */
     public void handleGreeting() {
-        System.out.println(this.HORIZONTAL_DIVIDER);
-        System.out.println("Hello! I'm " + this.CHATBOT_NAME);
+        System.out.println(HORIZONTAL_DIVIDER);
+        System.out.println("Hello! I'm " + CHATBOT_NAME);
         System.out.println("What can I do for you?");
-        System.out.println(this.HORIZONTAL_DIVIDER + "\n"); // Add newline so user input is on next line
+        System.out.println(HORIZONTAL_DIVIDER + "\n"); // Add newline so user input is on next line
     }
 
     /**
      * Handles the exit message sent by the chatbot.
      */
     public void handleExit() {
-        System.out.println(this.HORIZONTAL_DIVIDER);
+        System.out.println(HORIZONTAL_DIVIDER);
         System.out.println("Bye. Hope to see you again soon!");
-        System.out.println(this.HORIZONTAL_DIVIDER);
+        System.out.println(HORIZONTAL_DIVIDER);
     }
 
     /**
@@ -108,9 +108,9 @@ public class Ui {
      * @param e Exception provided.
      */
     public void displayError(Exception e) {
-        System.out.println(this.HORIZONTAL_DIVIDER);
+        System.out.println(HORIZONTAL_DIVIDER);
         System.out.println(e.getMessage());
-        System.out.println(this.HORIZONTAL_DIVIDER);
+        System.out.println(HORIZONTAL_DIVIDER);
     }
 
     /**
@@ -122,11 +122,11 @@ public class Ui {
     public void displayFoundTasks(TaskList taskList, String keyword) {
         ArrayList<Task> tasks = taskList.findTasks(keyword);
         int count = 1;
-        System.out.println(this.HORIZONTAL_DIVIDER);
+        System.out.println(HORIZONTAL_DIVIDER);
         System.out.println("Here are the matching tasks in your list:");
         for (Task task: tasks) {
             System.out.println(String.format("%d.%s", count++, task));
         }
-        System.out.println(this.HORIZONTAL_DIVIDER);
+        System.out.println(HORIZONTAL_DIVIDER);
     }
 }
