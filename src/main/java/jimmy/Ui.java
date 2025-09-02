@@ -1,23 +1,21 @@
 package jimmy;
 
+import java.util.ArrayList;
+
 import jimmy.task.Task;
 import jimmy.task.TaskList;
-
-import java.util.ArrayList;
 
 /**
  * Represents an Ui object.
  */
 public class Ui {
-    private final String CHATBOT_NAME;
-    private final String HORIZONTAL_DIVIDER;
+    private static final String CHATBOT_NAME = "Jimmy";
+    private static final String HORIZONTAL_DIVIDER = "_________________________________________________";
 
     /**
-     * Constructor for a Ui object.
+     * Constructs a Ui object.
      */
-    public Ui(String HORIZONTAL_DIVIDER) {
-        this.CHATBOT_NAME = "Jimmy";
-        this.HORIZONTAL_DIVIDER = "_________________________________________________";
+    public Ui() {
     }
 
     /**

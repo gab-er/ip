@@ -1,11 +1,15 @@
 package jimmy;
 
-import jimmy.exception.JimmyException;
-import jimmy.task.*;
-
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import jimmy.exception.JimmyException;
+import jimmy.task.Deadline;
+import jimmy.task.Event;
+import jimmy.task.Task;
+import jimmy.task.TaskList;
+import jimmy.task.ToDo;
 
 /**
  * Represents a Parser object.
@@ -16,7 +20,7 @@ public class Parser {
     private TaskList taskList;
 
     /**
-     * Constructor for a Parser object.
+     * Constructs a Parser object.
      *
      * @param ui          Ui object
      * @param taskStorage Storage object

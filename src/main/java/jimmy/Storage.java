@@ -1,14 +1,17 @@
 package jimmy;
 
-import jimmy.exception.JimmyException;
-import jimmy.task.*;
-
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
-import java.io.FileNotFoundException;
+
+import jimmy.exception.JimmyException;
+import jimmy.task.Deadline;
+import jimmy.task.Event;
+import jimmy.task.Task;
+import jimmy.task.TaskList;
+import jimmy.task.ToDo;
 
 /**
  * Represents a Storage object.
@@ -17,7 +20,7 @@ public class Storage {
     private final File storageFile;
 
     /**
-     * Constructor for a Storage object.
+     * Constructs a Storage object.
      *
      * @param filename name for the file of the stored tasks.
      */
@@ -67,7 +70,7 @@ public class Storage {
         switch (parsedData[0].toLowerCase()) {
         case ("todo"):
             // TODO|DESCRIPTION|COMPLETED
-            ToDo newTodo = new ToDo(parsedData[1], parsedData[2].equalsIgnoreCase("true")); // TODO|DESCRIPTION|COMPLETED
+            ToDo newTodo = new ToDo(parsedData[1], parsedData[2].equalsIgnoreCase("true"));
             return newTodo;
         case ("deadline"):
             // DEADLINE|DESCRIPTION|COMPLETED|DEADLINE

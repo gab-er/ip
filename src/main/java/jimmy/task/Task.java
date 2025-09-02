@@ -4,10 +4,10 @@ package jimmy.task;
  * Represents a task in the TaskList.
  */
 public class Task {
+    private static int globalId = 1; // Start from 1
     private boolean completed;
     private final String description;
     private final int id;
-    private static int globalId = 1; // Start from 1
 
     /**
      * Constructor for a Task object.

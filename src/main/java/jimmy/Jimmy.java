@@ -1,10 +1,10 @@
 package jimmy;
 
+import java.util.ArrayList;
+import java.util.Scanner;
+
 import jimmy.task.Task;
 import jimmy.task.TaskList;
-
-import java.util.Scanner;
-import java.util.ArrayList;
 
 /**
  * Represents the Jimmy chatbot object.
@@ -15,7 +15,6 @@ public class Jimmy {
     private Storage taskStorage;
     private Ui ui;
     private Parser parser;
-    private final String HORIZONTAL_DIVIDER = "_________________________________________________";
     private TaskList taskList;
 
     /**
@@ -26,7 +25,7 @@ public class Jimmy {
         this.taskStorage = new Storage("taskStorage.txt");
         this.taskList = new TaskList();
         this.taskList = this.taskStorage.loadData(this.taskList);
-        this.ui = new Ui(HORIZONTAL_DIVIDER);
+        this.ui = new Ui();
         this.parser = new Parser(this.ui, this.taskStorage, this.taskList);
     }
 

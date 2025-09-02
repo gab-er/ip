@@ -6,7 +6,7 @@ package jimmy.exception;
 public class JimmyException extends Exception {
 
     /**
-     * Constructor for a JimmyException.
+     * Constructs a JimmyException.
      *
      * @param message Error message to be shown.
      */
