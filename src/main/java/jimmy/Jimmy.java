@@ -7,7 +7,7 @@ import jimmy.task.Task;
 import jimmy.task.TaskList;
 
 /**
- * Represents the Jimmy chatbot object.
+ * Represents a Jimmy chatbot object.
  */
 public class Jimmy {
     private final Scanner scan;
