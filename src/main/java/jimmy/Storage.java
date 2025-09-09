@@ -41,6 +41,7 @@ public class Storage {
         } catch (IOException e) {
             System.out.println("Failed to create file: " + e.getMessage());
         }
+        assert this.storageFile != null;
     }
 
     /**
@@ -76,15 +77,18 @@ public class Storage {
         switch (parsedData[0].toLowerCase()) {
         case ("todo"):
             // TODO|DESCRIPTION|COMPLETED
+            assert parsedData.length == 3;
             ToDo newTodo = new ToDo(parsedData[1], parsedData[2].equalsIgnoreCase("true"));
             return newTodo;
         case ("deadline"):
             // DEADLINE|DESCRIPTION|COMPLETED|DEADLINE
+            assert parsedData.length == 4;
             Deadline newDeadline = new Deadline(parsedData[1], parsedData[2].equalsIgnoreCase("true"),
                     parsedData[3]);
             return newDeadline;
         case ("event"):
             // EVENT|DESCRIPTION|COMPLETED|START|END|
+            assert parsedData.length == 5;
             Event newEvent = new Event(parsedData[1], parsedData[2].equalsIgnoreCase("true"),
                     parsedData[3], parsedData[4]);
             return newEvent;
