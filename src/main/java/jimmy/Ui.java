@@ -55,6 +55,8 @@ public class Ui {
      */
     public String displayTaskList(TaskList taskList) {
         ArrayList<Task> storedTasks = taskList.getStoredTasks();
+        assert storedTasks != null;
+
         System.out.println(HORIZONTAL_DIVIDER);
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < storedTasks.size(); i++) {
@@ -157,6 +159,8 @@ public class Ui {
      */
     public String displayFoundTasks(TaskList taskList, String keyword) {
         ArrayList<Task> tasks = taskList.findTasks(keyword);
+        assert tasks != null;
+
         StringBuilder sb = new StringBuilder();
 
         int count = 1;

@@ -43,6 +43,7 @@ public class MainWindow extends AnchorPane {
 
     /** Injects the Jimmy instance */
     public void setJimmy(Jimmy j) {
+        assert j != null;
         jimmy = j;
     }
 
