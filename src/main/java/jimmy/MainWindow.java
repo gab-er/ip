@@ -10,6 +10,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import jimmy.exception.JimmyException;
 
 /**
  * Controller for the main GUI.
@@ -51,7 +52,7 @@ public class MainWindow extends AnchorPane {
      * the dialog container. Clears the user input after processing.
      */
     @FXML
-    private void handleUserInput() {
+    private void handleUserInput() throws JimmyException {
         String input = userInput.getText();
 
         if (input.equalsIgnoreCase("bye")) {

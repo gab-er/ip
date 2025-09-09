@@ -1,6 +1,7 @@
 package jimmy;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import jimmy.task.Task;
 import jimmy.task.TaskList;
@@ -11,40 +12,44 @@ import jimmy.task.TaskList;
 public class Ui {
     private static final String CHATBOT_NAME = "Jimmy";
     private static final String HORIZONTAL_DIVIDER = "___________________________________________";
+    private Scanner scan;
 
     /**
      * Constructs a Ui object.
      */
     public Ui() {
+        this.scan = new Scanner(System.in);
     }
 
     /**
-     * Handles the greeting sent by the chatbot.
+     * Reads the next command using the Scanner.
+     *
+     * @return Next command entered by the user.
+     */
+    public String readCommand() {
+        return scan.nextLine();
+    }
+
+    /**
+     * Displays the greeting sent by the chatbot.
      *
      * @return String to be shown on the GUI
      */
-    public String handleGreeting() {
-        System.out.println(HORIZONTAL_DIVIDER);
-        System.out.println("Hey! I'm " + CHATBOT_NAME);
-        System.out.println("What can I do for you?");
-        System.out.println(HORIZONTAL_DIVIDER + "\n"); // Add newline so user input is on next line
+    public String displayGreeting() {
         return String.format("%s\n "
                 + "Hey! I'm %s\n"
                 + "What can I do for you?" + "%s", HORIZONTAL_DIVIDER, CHATBOT_NAME, HORIZONTAL_DIVIDER);
     }
 
     /**
-     * Handles the exit message sent by the chatbot.
+     * Displays the exit message sent by the chatbot.
      *
      * @return String to be shown on the GUI
      */
-    public String handleExit() {
-        System.out.println(HORIZONTAL_DIVIDER);
-        System.out.println("Bye. Hope to see you again soon!");
-        System.out.println(HORIZONTAL_DIVIDER);
+    public String displayExit() {
         return String.format("%s\n "
-                + "Bye! Hope to see you again soon!\n"
-                + "%s", HORIZONTAL_DIVIDER, HORIZONTAL_DIVIDER);
+                        + "Bye! Hope to see you again soon!\n"
+                        + "%s", HORIZONTAL_DIVIDER, HORIZONTAL_DIVIDER);
     }
 
     /**
@@ -54,15 +59,6 @@ public class Ui {
      * @return String to be shown on the GUI
      */
     public String displayTaskList(TaskList taskList) {
-        ArrayList<Task> storedTasks = taskList.getStoredTasks();
-        System.out.println(HORIZONTAL_DIVIDER);
-        System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < storedTasks.size(); i++) {
-            Task currentTask = storedTasks.get(i);
-            String formattedString = String.format("%d.%s", i + 1, currentTask);
-            System.out.println(formattedString);
-        }
-        System.out.println(HORIZONTAL_DIVIDER);
         return String.format("%s\nHere are the tasks in your list:\n%s %s", HORIZONTAL_DIVIDER, taskList,
                 HORIZONTAL_DIVIDER);
 
@@ -75,9 +71,6 @@ public class Ui {
      * @return String to be shown on the GUI
      */
     public String displayMarkDone(Task taskToMark) {
-        System.out.println(HORIZONTAL_DIVIDER);
-        System.out.println(String.format("Nice! I've marked this task as done:\n %s", taskToMark));
-        System.out.println(HORIZONTAL_DIVIDER);
         return String.format("%s\nNice! I've marked this task as done:\n %s %s",
                 HORIZONTAL_DIVIDER, taskToMark, HORIZONTAL_DIVIDER);
     }
@@ -89,9 +82,6 @@ public class Ui {
      * @return String to be shown on the GUI
      */
     public String displayMarkNotDone(Task taskToUnmark) {
-        System.out.println(HORIZONTAL_DIVIDER);
-        System.out.println(String.format("Nice! I've marked this task as not done:\n %s", taskToUnmark));
-        System.out.println(HORIZONTAL_DIVIDER);
         return String.format("%s\nNice! I've marked this task as not done:\n %s %s",
                 HORIZONTAL_DIVIDER, taskToUnmark, HORIZONTAL_DIVIDER);
     }
@@ -104,10 +94,6 @@ public class Ui {
      * @return String to be shown on the GUI
      */
     public String displayAddedTask(Task newTask, TaskList taskList) {
-        System.out.println(HORIZONTAL_DIVIDER);
-        System.out.println(String.format("Got it. I've added this task:\n %s", newTask));
-        System.out.println(String.format("Now you have %d tasks in the list.", taskList.size()));
-        System.out.println(HORIZONTAL_DIVIDER);
         return String.format("%s\n"
                         + "Got it. I've added this task:\n %s\n"
                         + "Now you have %d tasks in the list.\n" + "%s",
@@ -122,10 +108,6 @@ public class Ui {
      * @return String to be shown on the GUI
      */
     public String displayRemovedTask(Task removedTask, TaskList taskList) {
-        System.out.println(HORIZONTAL_DIVIDER);
-        System.out.println(String.format("Noted. I've removed this task:\n %s", removedTask));
-        System.out.println(String.format("Now you have %d tasks in the list.", taskList.size()));
-        System.out.println(HORIZONTAL_DIVIDER);
         return String.format("%s\n"
                         + "Noted. I've removed this task:\n %s\n"
                         + "Now you have %d tasks in the list."
@@ -140,9 +122,6 @@ public class Ui {
      * @return String to be shown on the GUI
      */
     public String displayError(Exception e) {
-        System.out.println(HORIZONTAL_DIVIDER);
-        System.out.println(e.getMessage());
-        System.out.println(HORIZONTAL_DIVIDER);
         return String.format("%s\n "
                 + "%s\n"
                 + "%s", HORIZONTAL_DIVIDER, e.getMessage(), HORIZONTAL_DIVIDER);
@@ -160,15 +139,11 @@ public class Ui {
         StringBuilder sb = new StringBuilder();
 
         int count = 1;
-        System.out.println(HORIZONTAL_DIVIDER);
-        System.out.println("Here are the matching tasks in your list:");
         sb.append(String.format("%s\n"
                 + "Here are the matching tasks in your list:", HORIZONTAL_DIVIDER));
         for (Task task : tasks) {
-            System.out.println(String.format("%d.%s", count++, task));
             sb.append(String.format("%d.%s", count++, task));
         }
-        System.out.println(HORIZONTAL_DIVIDER);
         sb.append(HORIZONTAL_DIVIDER);
         return sb.toString();
     }
