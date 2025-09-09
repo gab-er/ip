@@ -76,18 +76,18 @@ public class Storage {
         String[] parsedData = dataEntry.split("\\|");
         switch (parsedData[0].toLowerCase()) {
         case ("todo"):
-            // TODO|DESCRIPTION|COMPLETED
+            // Format: TODO|DESCRIPTION|COMPLETED
             assert parsedData.length == 3;
             ToDo newTodo = new ToDo(parsedData[1], parsedData[2].equalsIgnoreCase("true"));
             return newTodo;
         case ("deadline"):
-            // DEADLINE|DESCRIPTION|COMPLETED|DEADLINE
+            // Format: DEADLINE|DESCRIPTION|COMPLETED|DEADLINE
             assert parsedData.length == 4;
             Deadline newDeadline = new Deadline(parsedData[1], parsedData[2].equalsIgnoreCase("true"),
                     parsedData[3]);
             return newDeadline;
         case ("event"):
-            // EVENT|DESCRIPTION|COMPLETED|START|END|
+            // Format: EVENT|DESCRIPTION|COMPLETED|START|END|
             assert parsedData.length == 5;
             Event newEvent = new Event(parsedData[1], parsedData[2].equalsIgnoreCase("true"),
                     parsedData[3], parsedData[4]);
