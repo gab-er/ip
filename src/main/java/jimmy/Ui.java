@@ -136,6 +136,8 @@ public class Ui {
      */
     public String displayFoundTasks(TaskList taskList, String keyword) {
         ArrayList<Task> tasks = taskList.findTasks(keyword);
+        assert tasks != null;
+
         StringBuilder sb = new StringBuilder();
 
         int count = 1;
