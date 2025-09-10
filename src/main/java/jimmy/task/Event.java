@@ -21,8 +21,8 @@ public class Event extends Task {
      * @param start       The start time of the task.
      * @param end         The end time of the task.
      */
-    public Event(String description, boolean completed, String start, String end) throws JimmyException {
-        super(description, completed);
+    public Event(String description, boolean completed, String tag, String start, String end) throws JimmyException {
+        super(description, completed, tag);
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
         // Parse start date and time
@@ -64,8 +64,8 @@ public class Event extends Task {
      */
     public String toStorageString() {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-        return String.format("EVENT|%s|%s|%s|%s", this.getDescription(), this.getCompleted(),
-                this.start.format(dateTimeFormatter), this.end.format(dateTimeFormatter));
+        return String.format("%s|EVENT|%s|%s|%s|%s", super.toStorageString(), this.getDescription(),
+                this.getCompleted(), this.start.format(dateTimeFormatter), this.end.format(dateTimeFormatter));
     }
 
     /**

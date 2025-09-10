@@ -49,6 +49,8 @@ public class Parser {
         String eventPattern = "event\\s+(.+)\\s+(/from (.+))\\s+(/to (.+))";
         String deletePattern = "delete (\\d+)";
         String findPattern = "find (.+)";
+        String tagPattern = "tag (\\d+) (.+)";
+        String untagPattern = "untag (\\d+)";
 
         if (command.matches(byePattern)) {
             return CommandPattern.BYE;
@@ -68,6 +70,10 @@ public class Parser {
             return CommandPattern.DELETE;
         } else if (command.matches(findPattern)) {
             return CommandPattern.FIND;
+        } else if (command.matches(tagPattern)) {
+            return CommandPattern.TAG;
+        } else if (command.matches(untagPattern)) {
+            return CommandPattern.UNTAG;
         } else {
             throw throwCommandError(command);
         }
@@ -87,6 +93,10 @@ public class Parser {
             return new JimmyException("Oops! Please give a valid deadline task!");
         } else if (command.toLowerCase().contains("event")) {
             return new JimmyException("Oops! Please give a valid event task!");
+        } else if (command.toLowerCase().contains("tag")) {
+            return new JimmyException("Oops! Please give a valid tag!");
+        } else if (command.toLowerCase().contains("untag")) {
+            return new JimmyException("Oops! Please untag a valid task!");
         } else {
             return new JimmyException("Oops! I have no clue what that means!");
         }
@@ -121,6 +131,10 @@ public class Parser {
                 return handleDelete(command);
             case FIND:
                 return handleFind(command);
+            case TAG:
+                return handleTag(command);
+            case UNTAG:
+                return handleUntag(command);
             default:
                 throw new JimmyException("Oops! Ran into an error!");
             }
@@ -138,12 +152,16 @@ public class Parser {
      * @param command String input that is typed by the user.
      * @return String to be shown on the GUI
      */
-    public String handleMark(String command){
+    public String handleMark(String command) throws JimmyException {
         // Mark: mark task as done
-        String[] splitCommand = command.split(" ");
-        int parsedInt = Integer.parseInt(splitCommand[1]); // Try to convert the string into an int
-        Task taskToMark = this.taskList.markDone(parsedInt);
-        return this.ui.displayMarkDone(taskToMark);
+        try {
+            String[] splitCommand = command.split(" ");
+            int parsedInt = Integer.parseInt(splitCommand[1]); // Try to convert the string into an int
+            Task taskToMark = this.taskList.markDone(parsedInt);
+            return this.ui.displayMarkDone(taskToMark);
+        } catch (Exception e) {
+            throw new JimmyException("Please mark a valid task!");
+        }
     }
 
     /**
@@ -152,12 +170,16 @@ public class Parser {
      * @param command String input that is typed by the user.
      * @return String to be shown on the GUI
      */
-    public String handleUnmark(String command){
+    public String handleUnmark(String command) throws JimmyException {
         // Unmark: mark task as not done
-        String[] splitCommand = command.split(" ");
-        int parsedInt = Integer.parseInt(splitCommand[1]); // Try to convert the string into an int
-        Task taskToUnmark = this.taskList.markNotDone(parsedInt);
-        return this.ui.displayMarkNotDone(taskToUnmark);
+        try {
+            String[] splitCommand = command.split(" ");
+            int parsedInt = Integer.parseInt(splitCommand[1]); // Try to convert the string into an int
+            Task taskToUnmark = this.taskList.markNotDone(parsedInt);
+            return this.ui.displayMarkNotDone(taskToUnmark);
+        } catch (Exception e) {
+            throw new JimmyException("Please unmark a valid task!");
+        }
     }
 
     /**
@@ -170,12 +192,13 @@ public class Parser {
     public String handleToDo(String command) throws JimmyException {
         String toDoPattern = "todo\\s+(.+)";
         Matcher m = Pattern.compile(toDoPattern).matcher(command);
-        if (m.find()) {
+        try {
+            m.find();
             String commandDescription = m.group(1);
-            ToDo newToDo = new ToDo(commandDescription, false);
+            ToDo newToDo = new ToDo(commandDescription, false, Task.EMPTY_TAG);
             this.taskList.addTask(newToDo);
             return this.ui.displayAddedTask(newToDo, this.taskList);
-        } else {
+        } catch (Exception e) {
             throw new JimmyException("Oops! Please add a valid todo task!");
         }
     }
@@ -190,13 +213,14 @@ public class Parser {
     public String handleDeadline(String command) throws JimmyException {
         String deadlinePattern = "deadline\\s+(.+)\\s+(/by (.+))";
         Matcher m = Pattern.compile(deadlinePattern).matcher(command);
-        if (m.find()) {
+        try {
+            m.find();
             String commandDescription = m.group(1);
             String deadline = m.group(3);
-            Deadline newDeadline = new Deadline(commandDescription, false, deadline);
+            Deadline newDeadline = new Deadline(commandDescription, false, Task.EMPTY_TAG, deadline);
             this.taskList.addTask(newDeadline);
             return this.ui.displayAddedTask(newDeadline, this.taskList);
-        } else {
+        } catch (Exception e) {
             throw new JimmyException("Oops! Please add a valid deadline task!");
         }
     }
@@ -211,14 +235,15 @@ public class Parser {
     public String handleEvent(String command) throws JimmyException {
         String eventPattern = "event\\s+(.+)\\s+(/from (.+))\\s+(/to (.+))";
         Matcher m = Pattern.compile(eventPattern).matcher(command);
-        if (m.find()) {
+        try {
+            m.find();
             String commandDescription = m.group(1);
             String start = m.group(3);
             String end = m.group(5);
-            Event newEvent = new Event(commandDescription, false, start, end);
+            Event newEvent = new Event(commandDescription, false, Task.EMPTY_TAG, start, end);
             this.taskList.addTask(newEvent);
             return this.ui.displayAddedTask(newEvent, this.taskList);
-        } else {
+        } catch (Exception e) {
             throw new JimmyException("Oops! Please add a valid event task!");
         }
     }
@@ -233,14 +258,15 @@ public class Parser {
     public String handleDelete(String command) throws JimmyException {
         String deletePattern = "delete (\\d+)";
         Matcher m = Pattern.compile(deletePattern).matcher(command);
-        if (m.find()) {
+        try {
+            m.find();
             int taskNumberToDelete = Integer.parseInt(m.group(1)) - 1;
             if (taskNumberToDelete > this.taskList.size()) {
                 throw new JimmyException("Oops! Please delete a valid task!");
             }
             Task taskToDelete = this.taskList.removeTask(taskNumberToDelete);
             return this.ui.displayRemovedTask(taskToDelete, this.taskList);
-        } else {
+        } catch (Exception e) {
             throw new JimmyException("Oops! Please delete a valid task!");
         }
     }
@@ -255,11 +281,55 @@ public class Parser {
     public String handleFind(String command) throws JimmyException {
         String findPattern = "find (.+)";
         Matcher m = Pattern.compile(findPattern).matcher(command);
-        if (m.find()) {
+        try {
+            m.find();
             String keyword = m.group(1);
             return this.ui.displayFoundTasks(this.taskList, keyword);
-        } else {
+        } catch (Exception e) {
             throw new JimmyException("Oops! Please find a valid task!");
+        }
+    }
+
+    /**
+     * Handles the logic being parsing the tag command.
+     *
+     * @param command String input that is typed by the user.
+     * @return String to be shown on the GUI
+     * @throws JimmyException Appropriate JimmyException based on the string command given by the user.
+     */
+    public String handleTag(String command) throws JimmyException {
+        String tagPattern = "tag (\\d+) (.+)";
+        Matcher m = Pattern.compile(tagPattern).matcher(command);
+        try {
+            m.find();
+            int taskNumber = Integer.parseInt(m.group(1));
+            String tag = m.group(2);
+            Task taskToTag = this.taskList.getTask(taskNumber);
+            taskToTag.setTag(tag); // Set the tag of the task
+            return this.ui.displayTag(taskToTag, tag);
+        } catch (Exception e) {
+            throw new JimmyException("Oops! Please tag a valid task!");
+        }
+    }
+
+    /**
+     * Handles the logic being parsing the untag command.
+     *
+     * @param command String input that is typed by the user.
+     * @return String to be shown on the GUI
+     * @throws JimmyException Appropriate JimmyException based on the string command given by the user.
+     */
+    public String handleUntag(String command) throws JimmyException {
+        String untagPattern = "untag (\\d+)";
+        Matcher m = Pattern.compile(untagPattern).matcher(command);
+        try {
+            m.find();
+            int taskNumber = Integer.parseInt(m.group(1));
+            Task taskToUntag = this.taskList.getTask(taskNumber);
+            taskToUntag.untag(); // Untag the task
+            return this.ui.displayUntag(taskToUntag);
+        } catch (Exception e) {
+            throw new JimmyException("Oops! Please untag a valid task!");
         }
     }
 }

@@ -73,24 +73,46 @@ public class Storage {
      * @return appropriate Task depending on the line entry.
      */
     public Task readData(String dataEntry) throws JimmyException {
+        String tag;
+        String description;
+        String isCompletedString;
+        String deadline;
+        String start;
+        String end;
+
         String[] parsedData = dataEntry.split("\\|");
-        switch (parsedData[0].toLowerCase()) {
+        String taskType = parsedData[1];
+        switch (taskType.toLowerCase()) {
         case ("todo"):
-            // Format: TODO|DESCRIPTION|COMPLETED
-            assert parsedData.length == 3;
-            ToDo newTodo = new ToDo(parsedData[1], parsedData[2].equalsIgnoreCase("true"));
+            // Format: TAG|TODO|DESCRIPTION|COMPLETED
+            assert parsedData.length == 4;
+            tag = parsedData[0];
+            description = parsedData[2];
+            isCompletedString = parsedData[3];
+
+            ToDo newTodo = new ToDo(description, isCompletedString.equalsIgnoreCase("true"), tag);
             return newTodo;
         case ("deadline"):
-            // Format: DEADLINE|DESCRIPTION|COMPLETED|DEADLINE
-            assert parsedData.length == 4;
-            Deadline newDeadline = new Deadline(parsedData[1], parsedData[2].equalsIgnoreCase("true"),
-                    parsedData[3]);
+            // Format: TAG|DEADLINE|DESCRIPTION|COMPLETED|DEADLINE
+            assert parsedData.length == 5;
+            tag = parsedData[0];
+            description = parsedData[2];
+            isCompletedString = parsedData[3];
+            deadline = parsedData[4];
+
+            Deadline newDeadline = new Deadline(description, isCompletedString.equalsIgnoreCase("true"),
+                    tag, deadline);
             return newDeadline;
         case ("event"):
-            // Format: EVENT|DESCRIPTION|COMPLETED|START|END|
-            assert parsedData.length == 5;
-            Event newEvent = new Event(parsedData[1], parsedData[2].equalsIgnoreCase("true"),
-                    parsedData[3], parsedData[4]);
+            // Format: TAG|EVENT|DESCRIPTION|COMPLETED|START|END|
+            assert parsedData.length == 6;
+            tag = parsedData[0];
+            description = parsedData[2];
+            isCompletedString = parsedData[3];
+            start = parsedData[4];
+            end = parsedData[5];
+            Event newEvent = new Event(description, isCompletedString.equalsIgnoreCase("true"), tag,
+                    start, end);
             return newEvent;
         default:
             throw new JimmyException("Error in reading data");

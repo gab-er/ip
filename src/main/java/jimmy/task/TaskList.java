@@ -61,15 +61,6 @@ public class TaskList {
     }
 
     /**
-     * Returns the ArrayList of stored tasks.
-     *
-     * @return ArrayList of stored tasks.
-     */
-    public ArrayList<Task> getStoredTasks() {
-        return this.storedTasks;
-    }
-
-    /**
      * Returns the number of tasks in the task list.
      *
      * @return number of tasks in the task list.
@@ -97,7 +88,7 @@ public class TaskList {
     public ArrayList<Task> findTasks(String keyword) {
         ArrayList<Task> tasks = new ArrayList<Task>();
         for (Task task: this.storedTasks) {
-            if (task.getDescription().contains(keyword)) {
+            if (task.getDescription().contains(keyword) || task.getTag().contains(keyword)) {
                 tasks.add(task);
             }
         }

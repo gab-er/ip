@@ -10,8 +10,8 @@ public class ToDo extends Task {
      *
      * @param description The description of the task.
      */
-    public ToDo(String description, boolean completed) {
-        super(description, completed);
+    public ToDo(String description, boolean completed, String tag) {
+        super(description, completed, tag);
     }
 
     /**
@@ -20,7 +20,7 @@ public class ToDo extends Task {
      * @return Formatted string.
      */
     public String toStorageString() {
-        return String.format("TODO|%s|%s", this.getDescription(), this.getCompleted());
+        return String.format("%s|TODO|%s|%s", super.toStorageString(), this.getDescription(), this.getCompleted());
     }
 
     /**

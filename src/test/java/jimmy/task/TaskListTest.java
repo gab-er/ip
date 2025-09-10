@@ -14,9 +14,9 @@ public class TaskListTest {
         ArrayList<Task> storedTasks = new ArrayList<>();
         TaskList taskList = new TaskList();
         assertEquals(0, taskList.size(), "taskList is unable to initialise correctly");
-        taskList.addTask(new ToDo("todo 1", false));
-        taskList.addTask(new ToDo("todo 2", false));
-        taskList.addTask(new ToDo("todo 3", false));
+        taskList.addTask(new ToDo("todo 1", false, Task.EMPTY_TAG));
+        taskList.addTask(new ToDo("todo 2", false, Task.EMPTY_TAG));
+        taskList.addTask(new ToDo("todo 3", false, Task.EMPTY_TAG));
         assertEquals(3, taskList.size(), "taskList is unable to add tasks correctly");
     }
 
@@ -25,9 +25,9 @@ public class TaskListTest {
         ArrayList<Task> storedTasks = new ArrayList<>();
         TaskList taskList = new TaskList();
         assertEquals(0, taskList.size(), "taskList is unable to initialise correctly");
-        taskList.addTask(new ToDo("todo 1", false));
-        taskList.addTask(new ToDo("todo 2", false));
-        taskList.addTask(new ToDo("todo 3", false));
+        taskList.addTask(new ToDo("todo 1", false, Task.EMPTY_TAG));
+        taskList.addTask(new ToDo("todo 2", false, Task.EMPTY_TAG));
+        taskList.addTask(new ToDo("todo 3", false, Task.EMPTY_TAG));
         taskList.removeTask(2);
         assertEquals(2, taskList.size(), "taskList is unable to remove tasks correctly");
         taskList.removeTask(1);
@@ -41,9 +41,9 @@ public class TaskListTest {
         ArrayList<Task> storedTasks = new ArrayList<>();
         TaskList taskList = new TaskList();
         assertEquals(0, taskList.size(), "taskList is unable to initialise correctly");
-        taskList.addTask(new ToDo("todo 1", false));
-        taskList.addTask(new ToDo("todo 2", false));
-        taskList.addTask(new ToDo("todo 3", false));
+        taskList.addTask(new ToDo("todo 1", false, Task.EMPTY_TAG));
+        taskList.addTask(new ToDo("todo 2", false, Task.EMPTY_TAG));
+        taskList.addTask(new ToDo("todo 3", false, Task.EMPTY_TAG));
         taskList.markDone(1);
         assertTrue(taskList.getTask(1).getCompleted(), "taskList is unable to mark tasks correctly");
         taskList.markDone(2);
@@ -57,9 +57,9 @@ public class TaskListTest {
         ArrayList<Task> storedTasks = new ArrayList<>();
         TaskList taskList = new TaskList();
         assertEquals(0, taskList.size(), "taskList is unable to initialise correctly");
-        taskList.addTask(new ToDo("todo 1", true));
-        taskList.addTask(new ToDo("todo 2", true));
-        taskList.addTask(new ToDo("todo 3", true));
+        taskList.addTask(new ToDo("todo 1", true, Task.EMPTY_TAG));
+        taskList.addTask(new ToDo("todo 2", true, Task.EMPTY_TAG));
+        taskList.addTask(new ToDo("todo 3", true, Task.EMPTY_TAG));
         taskList.markNotDone(1);
         assertFalse(taskList.getTask(1).getCompleted(), "taskList is unable to unmark tasks correctly");
         taskList.markNotDone(2);

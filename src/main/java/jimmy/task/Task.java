@@ -4,20 +4,20 @@ package jimmy.task;
  * Represents a task in the TaskList.
  */
 public class Task {
-    private static int globalId = 1; // Start from 1
+    public static final String EMPTY_TAG = "";
     private boolean completed;
     private final String description;
-    private final int id;
+    private String tag; // Initialize tag to be empty
 
     /**
      * Constructor for a Task object.
      *
      * @param description The description of the task.
      */
-    public Task(String description, boolean completed) {
+    public Task(String description, boolean completed, String tag) {
         this.completed = completed;
         this.description = description;
-        this.id = globalId++;
+        this.tag = tag;
     }
 
     /**
@@ -67,7 +67,7 @@ public class Task {
      * @return Formatted string.
      */
     public String toStorageString() {
-        return String.format("TODO|%s|%s", this.getDescription(), this.getCompleted());
+        return String.format("%s", this.tag, this.getDescription(), this.getCompleted());
     }
 
     /**
@@ -77,7 +77,30 @@ public class Task {
      */
     @Override
     public String toString() {
-        String formattedString = String.format("[%s] %s", this.getStatusIcon(), this.getDescription());
+        String tagMessage = this.tag.equals(EMPTY_TAG) ? "" : String.format(" (#%s)", this.tag);
+        String formattedString = String.format("[%s] %s%s", this.getStatusIcon(), this.getDescription(), tagMessage);
         return formattedString;
     }
+
+    /**
+     * Sets the tag of a task.
+     * @param tag Tag to be set.
+     */
+    public void setTag(String tag) {
+        this.tag = tag;
+    };
+
+    /**
+     * Gets the tag of a task.
+     */
+    public String getTag() {
+        return this.tag;
+    };
+
+    /**
+     * Untag a task.
+     */
+    public void untag() {
+        this.tag = "";
+    };
 }

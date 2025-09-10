@@ -19,8 +19,8 @@ public class Deadline extends Task {
      * @param description The description of the task.
      * @param deadline    The deadline of the task in the format yyyy-mm-dd.
      */
-    public Deadline(String description, boolean completed, String deadline) throws JimmyException {
-        super(description, completed);
+    public Deadline(String description, boolean completed, String tag, String deadline) throws JimmyException {
+        super(description, completed, tag);
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         try {
             LocalDateTime d1 = LocalDateTime.parse(deadline, dateTimeFormatter);
@@ -43,8 +43,8 @@ public class Deadline extends Task {
      */
     public String toStorageString() {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-        return String.format("DEADLINE|%s|%s|%s", this.getDescription(), this.getCompleted(),
-                this.deadline.format(dateTimeFormatter));
+        return String.format("%s|DEADLINE|%s|%s|%s", super.toStorageString(), this.getDescription(),
+                this.getCompleted(), this.deadline.format(dateTimeFormatter));
     }
 
     /**
