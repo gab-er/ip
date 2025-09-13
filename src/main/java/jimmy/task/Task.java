@@ -5,7 +5,7 @@ package jimmy.task;
  */
 public class Task {
     public static final String EMPTY_TAG = "";
-    private boolean completed;
+    private boolean isCompleted;
     private final String description;
     private String tag; // Initialize tag to be empty
 
@@ -15,7 +15,7 @@ public class Task {
      * @param description The description of the task.
      */
     public Task(String description, boolean completed, String tag) {
-        this.completed = completed;
+        this.isCompleted = completed;
         this.description = description;
         this.tag = tag;
     }
@@ -24,14 +24,14 @@ public class Task {
      * Marks a task as done.
      */
     public void markDone() {
-        this.completed = true;
+        this.isCompleted = true;
     }
 
     /**
      * Marks a task as not done.
      */
     public void markNotDone() {
-        this.completed = false;
+        this.isCompleted = false;
     }
 
     /**
@@ -49,7 +49,7 @@ public class Task {
      * @return Completion status of the task.
      */
     public boolean getCompleted() {
-        return this.completed;
+        return this.isCompleted;
     }
 
     /**
@@ -58,7 +58,7 @@ public class Task {
      * @return Appropriate status icon depending on the completion status of the task.
      */
     public String getStatusIcon() {
-        return this.completed ? "X" : " ";
+        return this.isCompleted ? "X" : " ";
     }
 
     /**
@@ -98,7 +98,7 @@ public class Task {
     };
 
     /**
-     * Untag a task.
+     * Untags a task.
      */
     public void untag() {
         this.tag = "";
