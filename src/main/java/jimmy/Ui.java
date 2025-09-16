@@ -130,10 +130,9 @@ public class Ui {
         StringBuilder sb = new StringBuilder();
 
         int count = 1;
-        sb.append(String.format("%s\n"
-                + "Here are the matching tasks in your list:"));
+        sb.append(String.format("Here are the matching tasks in your list: \n"));
         for (Task task : tasks) {
-            sb.append(String.format("%d.%s", count++, task));
+            sb.append(String.format("%d.%s\n", count++, task));
         }
         return sb.toString();
     }
