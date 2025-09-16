@@ -12,7 +12,7 @@ Jimmy is a fast and efficient task management application that helps you organiz
 
 4. Type commands to manage your tasks
 
-5. Type bye to save your tasks and close the application
+5. Type "bye" to close the application
 
 ## 💡Features
 Jimmy has a variety of features! 
