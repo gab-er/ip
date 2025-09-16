@@ -48,7 +48,7 @@ Here are the tasks in your list:
 
 Add a simple task without any date/time! 
 
-Command: ``todo work``
+Example Command: ``todo work``
 
 Expected Output:
 
@@ -61,7 +61,7 @@ Now you have 1 task in the list.
 ### ⏰ Adding deadlines
 Add a task with a specific due date!
 
-Command: ``deadline work /by 2025-08-08 1400``
+Example Command: ``deadline work /by 2025-08-08 1400``
 
 Expected ouput:
 ```
@@ -73,7 +73,7 @@ Now you have 1 task in the list.
 ### 🎯 Adding events
 Add a task with a specific due date and end date!
 
-Command: ``event work /from 2025-08-08 1400 /to 2025-08-08 1500``
+Example Command: ``event work /from 2025-08-08 1400 /to 2025-08-08 1500``
 
 Expected ouput:
 ```
@@ -85,35 +85,35 @@ Now you have 1 task in the list.
 ### ✅ Mark your tasks as done!
 Mark your tasks you're finished with a task!
 
-Command: ``mark 1``
+Example Command: ``mark 1``
 
 ### 🔄 Unmark your tasks as done!
 Unmark a task as completed!
 
-Command: ``unmark 1``
+Example Command: ``unmark 1``
 
 ### 🗑️ Delete your tasks!
 Delete a task!
 
-Command: ``delete 1``
+Example Command: ``delete 1``
 
 ### 📌 Tag your tasks!
 
 Tag your tasks with custom tags!
 
-Command: ``tag 1 homework``
+Example Command: ``tag 1 homework``
 
 ### ➖ Untag your tasks!
 
 Untag your tasks!
 
-Command: ``untag 1``
+Example Command: ``untag 1``
 
 ### 🔍 Find your tasks!
 
 Find your tasks with keywords!
 
-Command: ``find work``
+Example Command: ``find work``
 
 ### 🚪 Leaving?
 Exit the chatbot!
