@@ -33,9 +33,6 @@ public class Jimmy {
      * Runs the chatbot program.
      */
     public void run() {
-        // Greetings
-        this.ui.displayGreeting();
-
         // Handle user inputs
         while (this.isRunning) {
             String command = this.ui.readCommand(); // Retrieve initial user input

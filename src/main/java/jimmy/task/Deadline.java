@@ -18,6 +18,7 @@ public class Deadline extends Task {
      *
      * @param description The description of the task.
      * @param deadline    The deadline of the task in the format yyyy-mm-dd.
+     * @throws JimmyException If the date or time is invalid.
      */
     public Deadline(String description, boolean completed, String tag, String deadline) throws JimmyException {
         super(description, completed, tag);
@@ -26,13 +27,23 @@ public class Deadline extends Task {
             LocalDateTime d1 = LocalDateTime.parse(deadline, dateTimeFormatter);
             this.deadline = d1;
         } catch (DateTimeParseException e) {
-            try {
-                // If missing time, set it to 00:00 as default
-                LocalDateTime d1 = LocalDate.parse(deadline).atStartOfDay();
-                this.deadline = d1;
-            } catch (DateTimeParseException e2) {
-                throw new JimmyException("Please add a valid date and time!");
-            }
+            this.deadline = handleMissingTime(deadline);
+        }
+    }
+
+    /**
+     * Returns a LocalDateTime with a time that is the start of the day 00:00.
+     * @param deadline String with the provided date.
+     * @return LocalDateTime with a time that is the start of the day 00:00.
+     * @throws JimmyException If the date or time is invalid.
+     */
+    public LocalDateTime handleMissingTime(String deadline) throws JimmyException {
+        try {
+            // If missing time, set it to 00:00 as default
+            LocalDateTime d1 = LocalDate.parse(deadline).atStartOfDay();
+            return d1;
+        } catch (DateTimeParseException e2) {
+            throw new JimmyException("Please add a valid date and time!");
         }
     }
 

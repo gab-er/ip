@@ -4,24 +4,52 @@
 Jimmy is a fast and efficient task management application that helps you organize your todos, deadlines, and events through a clean command-line interface. Perfect for users who prefer keyboard-driven productivity.
 
 ## 🚀 Quick Start
-``` 
-    Download the latest jimmy.jar file
+1. Download the latest jar release file
 
-    Copy the file to your preferred folder
+2. Copy the file to your preferred folder
 
-    Open a terminal in that folder and run: java -jar jimmy.jar
+3. Open a terminal in that folder and run: java -jar Jimmy.jar
 
-    Type commands to manage your tasks
+4. Type commands to manage your tasks
 
-    Type bye to save your tasks and close the application
+5. Type bye to save your tasks and close the application
+
+## 💡Features
+Jimmy has a variety of features! 
+
+- Add and delete tasks!
+  - Todos
+  - Events
+  - Deadlines
+
+- Mark tasks as done
+
+- Find tasks with keywords
+
+- Tag tasks with custom tags
+
+## ❓Guide 
+
+### 📜 Display your task list!
+
+Display all your current tasks!
+
+Command: ``list``
+
+Expected Output (with sample tasks):
+
 ```
-## 📋 Adding todos
+Here are the tasks in your list:
+1. [D][] work (by: Aug 8 2025 14:00)
+2. [T][] exercise 
+```
 
-Add a simple task without any date/time! \
-Example:
-```
-todo work
-```
+### 📋 Adding todos
+
+Add a simple task without any date/time! 
+
+Command: ``todo work``
+
 Expected Output:
 
 ```
@@ -30,13 +58,11 @@ Got it. I've added this task:
 Now you have 1 task in the list.
 ```
 
-## ⏰ Adding deadlines
-Add a task with a specific due date!\
-Example:
+### ⏰ Adding deadlines
+Add a task with a specific due date!
 
-```
-deadline work /by 2025-08-08 1400
-```
+Command: ``deadline work /by 2025-08-08 1400``
+
 Expected ouput:
 ```
 Got it. I've added this task:
@@ -44,13 +70,11 @@ Got it. I've added this task:
 Now you have 1 task in the list.
 ```
 
-## 🎯 Adding events
-Add a task with a specific due date and end date!\
-Example:
+### 🎯 Adding events
+Add a task with a specific due date and end date!
 
-```
-event work /from 2025-08-08 1400 /to 2025-08-08 1500
-```
+Command: ``event work /from 2025-08-08 1400 /to 2025-08-08 1500``
+
 Expected ouput:
 ```
 Got it. I've added this task:
@@ -58,50 +82,40 @@ Got it. I've added this task:
 Now you have 1 task in the list.
 ```
 
-## ✅ Mark your tasks as done!
-Use this command when you're finished with a task!
-```
-mark 1 // Mark the first task as done
-```
+### ✅ Mark your tasks as done!
+Mark your tasks you're finished with a task!
 
-## 🔄 Unmark your tasks as done!
-Use this command when you want to unmark a task as completed!
-```
-unmark 1 // Unmark the first task as done
-```
+Command: ``mark 1``
 
-## 🗑️ Delete your tasks!
-Use this command to delete a task
-```
-delete 1 // Deletes the first task 
-```
+### 🔄 Unmark your tasks as done!
+Unmark a task as completed!
 
-## 📜 Display your task list!
+Command: ``unmark 1``
 
-Use this command to display all your current tasks!
-```
-list
-```
+### 🗑️ Delete your tasks!
+Delete a task!
 
+Command: ``delete 1``
 
-## 📌 Tag your tasks!
+### 📌 Tag your tasks!
 
-Tag your tasks with custom tags!\
-Example:
-```
-tag 1 homework // Tags the first task as homework
-```
+Tag your tasks with custom tags!
 
-## 🔍 Find your tasks!
+Command: ``tag 1 homework``
 
-Find your tasks with keywords!\
-Example:
-```
-find work // Shows all tasks with the keyword "work"
-```
+### ➖ Untag your tasks!
 
-## 🚪 Leaving?
-Use this command to exit the chatbot
-```
-bye
-```
+Untag your tasks!
+
+Command: ``untag 1``
+
+### 🔍 Find your tasks!
+
+Find your tasks with keywords!
+
+Command: ``find work``
+
+### 🚪 Leaving?
+Exit the chatbot!
+
+Command: ``bye``
