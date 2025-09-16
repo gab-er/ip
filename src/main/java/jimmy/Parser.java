@@ -18,6 +18,19 @@ public class Parser {
     private Storage taskStorage;
     private TaskList taskList;
 
+    // Initialise all necessary regular expression patterns
+    private final String markPattern = "mark \\d+\\s*";
+    private final String unmarkPattern = "unmark \\d+\\s*";
+    private final String listPattern = "list\\s*";
+    private final String byePattern = "bye\\s*";
+    private final String toDoPattern = "todo\\s+(.+)\\s*";
+    private final String deadlinePattern = "deadline\\s+(.+)\\s+(/by\\s+(.+))\\s*";
+    private final String eventPattern = "event\\s+(.+)\\s+(/from (.+))\\s+(/to (.+))\\s*";
+    private final String deletePattern = "delete (\\d+)\\s*";
+    private final String findPattern = "find (.+)";
+    private final String tagPattern = "tag (\\d+) (.+)\\s*";
+    private final String untagPattern = "untag (\\d+)\\s*";
+
     /**
      * Constructs a Parser object.
      *
@@ -39,19 +52,6 @@ public class Parser {
      * @throws JimmyException If the command is not of any recognisable pattern.
      */
     public CommandPattern parsePattern(String command) throws JimmyException {
-        // Initialise all necessary regular expression patterns
-        String markPattern = "mark \\d+";
-        String unmarkPattern = "unmark \\d+";
-        String listPattern = "list";
-        String byePattern = "bye";
-        String toDoPattern = "todo\\s+(.+)";
-        String deadlinePattern = "deadline\\s+(.+)\\s+(/by (.+))";
-        String eventPattern = "event\\s+(.+)\\s+(/from (.+))\\s+(/to (.+))";
-        String deletePattern = "delete (\\d+)";
-        String findPattern = "find (.+)";
-        String tagPattern = "tag (\\d+) (.+)";
-        String untagPattern = "untag (\\d+)";
-
         if (command.matches(byePattern)) {
             return CommandPattern.BYE;
         } else if (command.matches(listPattern)) {
@@ -190,7 +190,6 @@ public class Parser {
      * @throws JimmyException Appropriate JimmyException based on the string command given by the user.
      */
     public String handleToDo(String command) throws JimmyException {
-        String toDoPattern = "todo\\s+(.+)";
         Matcher m = Pattern.compile(toDoPattern).matcher(command);
         try {
             m.find();
@@ -211,12 +210,11 @@ public class Parser {
      * @throws JimmyException Appropriate JimmyException based on the string command given by the user.
      */
     public String handleDeadline(String command) throws JimmyException {
-        String deadlinePattern = "deadline\\s+(.+)\\s+(/by (.+))";
         Matcher m = Pattern.compile(deadlinePattern).matcher(command);
         try {
             m.find();
             String commandDescription = m.group(1);
-            String deadline = m.group(3);
+            String deadline = m.group(3).trim();
             Deadline newDeadline = new Deadline(commandDescription, false, Task.EMPTY_TAG, deadline);
             this.taskList.addTask(newDeadline);
             return this.ui.displayAddedTask(newDeadline, this.taskList);
@@ -233,13 +231,12 @@ public class Parser {
      * @throws JimmyException Appropriate JimmyException based on the string command given by the user.
      */
     public String handleEvent(String command) throws JimmyException {
-        String eventPattern = "event\\s+(.+)\\s+(/from (.+))\\s+(/to (.+))";
         Matcher m = Pattern.compile(eventPattern).matcher(command);
         try {
             m.find();
             String commandDescription = m.group(1);
-            String start = m.group(3);
-            String end = m.group(5);
+            String start = m.group(3).trim();
+            String end = m.group(5).trim();
             Event newEvent = new Event(commandDescription, false, Task.EMPTY_TAG, start, end);
             this.taskList.addTask(newEvent);
             return this.ui.displayAddedTask(newEvent, this.taskList);
@@ -256,7 +253,6 @@ public class Parser {
      * @throws JimmyException Appropriate JimmyException based on the string command given by the user.
      */
     public String handleDelete(String command) throws JimmyException {
-        String deletePattern = "delete (\\d+)";
         Matcher m = Pattern.compile(deletePattern).matcher(command);
         try {
             m.find();
@@ -279,7 +275,6 @@ public class Parser {
      * @throws JimmyException Appropriate JimmyException based on the string command given by the user.
      */
     public String handleFind(String command) throws JimmyException {
-        String findPattern = "find (.+)";
         Matcher m = Pattern.compile(findPattern).matcher(command);
         try {
             m.find();
@@ -298,7 +293,6 @@ public class Parser {
      * @throws JimmyException Appropriate JimmyException based on the string command given by the user.
      */
     public String handleTag(String command) throws JimmyException {
-        String tagPattern = "tag (\\d+) (.+)";
         Matcher m = Pattern.compile(tagPattern).matcher(command);
         try {
             m.find();
@@ -320,7 +314,6 @@ public class Parser {
      * @throws JimmyException Appropriate JimmyException based on the string command given by the user.
      */
     public String handleUntag(String command) throws JimmyException {
-        String untagPattern = "untag (\\d+)";
         Matcher m = Pattern.compile(untagPattern).matcher(command);
         try {
             m.find();
