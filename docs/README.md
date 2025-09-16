@@ -1,7 +1,6 @@
 # Jimmy User Guide
 
 ![](docs/Ui.png)
-
 Jimmy is a fast and efficient task management application that helps you organize your todos, deadlines, and events through a clean command-line interface. Perfect for users who prefer keyboard-driven productivity.
 
 ## 🚀 Quick Start
@@ -14,7 +13,7 @@ Jimmy is a fast and efficient task management application that helps you organiz
 
     Type commands to manage your tasks
 
-    Type exit to save your tasks and close the application
+    Type bye to save your tasks and close the application
 ```
 ## 📋 Adding todos
 
