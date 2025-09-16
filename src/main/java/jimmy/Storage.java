@@ -17,7 +17,12 @@ import jimmy.task.ToDo;
  * Represents a Storage object.
  */
 public class Storage {
+    private static final int TODO_FIELD_COUNT = 4;
+    private static final int DEADLINE_FIELD_COUNT = 5;
+    private static final int EVENT_FIELD_COUNT = 6;
+    private static final String DELIMITER = "\\|";
     private File storageFile;
+
 
     /**
      * Constructs a Storage object.
@@ -80,12 +85,12 @@ public class Storage {
         String start;
         String end;
 
-        String[] parsedData = dataEntry.split("\\|");
+        String[] parsedData = dataEntry.split(DELIMITER);
         String taskType = parsedData[1];
         switch (taskType.toLowerCase()) {
         case ("todo"):
             // Format: TAG|TODO|DESCRIPTION|COMPLETED
-            assert parsedData.length == 4;
+            assert parsedData.length == TODO_FIELD_COUNT;
             tag = parsedData[0];
             description = parsedData[2];
             isCompletedString = parsedData[3];
@@ -94,7 +99,7 @@ public class Storage {
             return newTodo;
         case ("deadline"):
             // Format: TAG|DEADLINE|DESCRIPTION|COMPLETED|DEADLINE
-            assert parsedData.length == 5;
+            assert parsedData.length == DEADLINE_FIELD_COUNT;
             tag = parsedData[0];
             description = parsedData[2];
             isCompletedString = parsedData[3];
@@ -105,12 +110,13 @@ public class Storage {
             return newDeadline;
         case ("event"):
             // Format: TAG|EVENT|DESCRIPTION|COMPLETED|START|END|
-            assert parsedData.length == 6;
+            assert parsedData.length == EVENT_FIELD_COUNT;
             tag = parsedData[0];
             description = parsedData[2];
             isCompletedString = parsedData[3];
             start = parsedData[4];
             end = parsedData[5];
+
             Event newEvent = new Event(description, isCompletedString.equalsIgnoreCase("true"), tag,
                     start, end);
             return newEvent;
