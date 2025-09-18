@@ -90,9 +90,9 @@ public class Parser {
         } else if (command.toLowerCase().contains("todo")) {
             return new JimmyException("Oops! Please give a valid todo task!");
         } else if (command.toLowerCase().contains("deadline")) {
-            return new JimmyException("Oops! Please give a valid deadline task!");
+            return new JimmyException("Oops! Please give a valid deadline task with this date format: YYYY-MM-DD HHmm!");
         } else if (command.toLowerCase().contains("event")) {
-            return new JimmyException("Oops! Please give a valid event task!");
+            return new JimmyException("Oops! Please give a valid event task with this date format: YYYY-MM-DD HHmm!");
         } else if (command.toLowerCase().contains("tag")) {
             return new JimmyException("Oops! Please give a valid tag!");
         } else if (command.toLowerCase().contains("untag")) {
@@ -219,7 +219,7 @@ public class Parser {
             this.taskList.addTask(newDeadline);
             return this.ui.displayAddedTask(newDeadline, this.taskList);
         } catch (Exception e) {
-            throw new JimmyException("Oops! Please add a valid deadline task!");
+            throw new JimmyException("Oops! Please give a valid deadline task with this date format: YYYY-MM-DD HHmm!\"");
         }
     }
 
@@ -241,7 +241,7 @@ public class Parser {
             this.taskList.addTask(newEvent);
             return this.ui.displayAddedTask(newEvent, this.taskList);
         } catch (Exception e) {
-            throw new JimmyException("Oops! Please add a valid event task!");
+            throw new JimmyException("Oops! Please give a valid event task with this date format: YYYY-MM-DD HHmm!");
         }
     }
 
